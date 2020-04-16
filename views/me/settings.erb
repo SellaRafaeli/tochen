@@ -1,0 +1,45 @@
+<h1> Advanced Settings </h1>
+<%
+custom_msgs_pct = cu[:custom_msgs_pct] || 50
+%>
+<div>
+		<form action='update_settings' method='post' class='form1'>
+      <% if !$prod %>
+      <label> My Style: </label> <select name="style" style='width: 120px'>
+        <% MSG_STYLES.each do |style| %>
+          <option value=<%=style%> <%= 'selected' if cu[:style]==style%>><%=style%></option>
+        <% end %>
+      </select> 
+      <br/>
+      <% end %>
+      <br/>
+      <br/>
+      <div class='alert alert-primary'> Custom messages are a powerful tool for you to shape your own thoughts. Write down the truths you remember in your better moments, that you want to remind yourself in the harder moments. </div>
+
+			<label> Your custom messages</label>
+      <textarea name='custom_msgs' class='textarea1' placeholder='My custom message' autofocus style='resize: auto; height: 400px; width: 800px;'><%= cu[:custom_msgs]%></textarea>
+
+			<figcaption>enter as many as you like, separated by an enter</figcaption>
+			<br/>
+			<label> Use your custom messages approximately: </label> <select name="custom_msgs_pct" style='width: 70px'>
+				<% [0,25,50,75,100].each do |num| %>
+					<option value=<%=num%> <%= 'selected' if custom_msgs_pct==num%>><%=num%>%</option>
+				<% end %>
+			</select> of the time
+
+      <br/>
+      <br/>
+      <div class='alert alert-primary'> Clarifying what mental state you would like to be in helps both mindy and you achieve that state.</div>      
+      <label> Your desired mental state</label>
+      <textarea name='desired_state' class='textarea1' placeholder='I wish I was more...' style='resize: none; height: 200px; width: 400px;'><%= cu[:desired_state]%></textarea>
+
+      <br/>
+			<br/><label> I'm ok with emails about new features:</label><input name=email_features type=checkbox <%="checked" if cu[:email_features]%> /> 
+			<br/><label> I'm ok with emails in general:</label><input name=email_all type=checkbox <%="checked" if cu[:email_all]%> /> 
+
+			<br/>
+			<br/>
+			<button class='btn btn-info btn-raised'> Update Advanced Settings</button>
+			<a href='/me' class='btn btn-info btn-raised'> Back to Main settings</a>
+		</form>
+</div>

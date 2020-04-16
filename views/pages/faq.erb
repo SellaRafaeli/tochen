@@ -1,0 +1,33 @@
+<%
+  faqs = [
+    {title: 'Why should I use Mindy?', text: 'Mindy is a free service that uses modern technology and science to passively alleviate stress and anxiety, requiring little to no participative action or commitment. If you or someone you care about suffer occasionally from stress, anxiety, or would like to practice living a more mindful and relaxed life, you should try Mindy.'},
+    {title: 'What does "AI assistant" mean?', text: '"AI" stands for "Artificial Intelligence" - Mindy is a collection of software algorithms and computer processes. Mindy is not a real person: you can think of Mindy as similar to Alexa, Siri, or Cortana. Mindy lives in the cloud, and can communicate with you using a variety of services in a human-like fashion.<br/><br/>Mindy\'s training and role is to help <b>you</b>.'},
+    {title: 'What does "mindfulness" mean?', text: '"Mindfulness" is the quality or state of being conscious or aware of something; the quality or state of being conscious and aware; a mental state achieved by focusing one\'s awareness on the present moment, while calmly acknowledging and accepting one\'s feelings, thoughts, and bodily sensations. It is often used as a therapeutic technique.'},
+    {title: 'What does Mindy do?', text: 'Mindy employs a variety of techniques to help you maintain your desired mental state. These include sending you personalized content and media through approved channels; receiving feedback from you (explicit and implicit) on itself and learning what type of behaviour works best for you; discussing your mental and emotional state with you; and similar interactions. Mindy is meant to simulate the empathy of a good friend, therapist or spiritual guide with the power and knowledge of artificial intelligence and neural networks.'},
+    {title: 'OK, but what <i> exactly </i> does Mindy do?', text: 'Mindy will send you mind-improving messages based on your preferences for content, timing, and channel. These messages will be both unidirectional (from Mindy to you) and bidirectional (between you and Mindy). With time, Mindy\'s AI systems will learn what works best for you. The more feedback you give Mindy, the better. Mindy learns both from your feedback and from others. The more you tell Mindy about your life, the better Mindy can support your exact issues.'},
+    {title: 'What communication channels does Mindy support?', text: 'Mindy currently supports communication via mindy\'s mobile app, with legacy support for email and SMS messages. In the future, we hope to support Mindy over Facebook Messenger and WhatsApp. By Q4 of 2020 we hope to support integration with Alexa.'},
+    {title: 'What languages does Mindy speak?', text: 'As of November 2019, Mindy only speaks English. By Q4 of 2020 we hope to teach Mindy to support Spanish, German, and Russian.'},
+    {title: 'Does Mindy support only mindfulness, or also other types of mental well-being?', text: 'As of November 2019, Mindy only supports mindfulness. By Q2 of 2020 we hope to launch "Mindy for Entrepreneurs" to support ambitious individuals, as well as "Mindy for Moms" and "Mindy for Dads" for individuals coping with parenthood.'},    
+    {title: 'Why is Mindy free?', text: 'We believe in giving as much value as we can to the community, and we are happy to be able to support people\'s mental well-being to whatever extent we can. However, some technical resources cost more money to operate at scale than we can afford, which is why some advanced features will require a paying account. Paid accounts will pay both for your own features as well as for other users; if you enjoy Mindy\'s support and would like to ensure you and others can continue receiving this support, please consider supporting Mindy or <a href="/contact">contacting</a> us.<br/><br/>As of November 2019, Mindy is a non-profit.'},
+    {title: 'What if I have a question or a problem?', text: 'You should <a href="/contact">contact</a> us. Seriously, we have fanatical customer support.'},
+    {title: 'Mindy is amazing!', text: 'That\'s not a question, but we\'re happy to hear. :) If you enjoy receiving Mindy\'s help, please consider spreading the word. We will never have too much free mental well-being.'}
+  ]
+%>
+
+<h3 id=faq> FAQ</h3>
+
+<div class='mega-msg'>A mindful AI assistant for mental health and well-being.</div>
+<div class='mega-submsg'>Mindy is an AI assistant that helps you stay mindful.</div>
+<br/>
+
+<div class='faqs'>
+<% faqs.each do |faq| %>
+  <div class='faq'>
+    <div class='faq-title'><%= faq[:title] %></div>
+    <div class='faq-text'><%= faq[:text] %></div>
+  </div> 
+<% end %>
+<div class='ct'>
+  <a style='width: 300px' class='btn btn-raised btn-info' href='/signup'> Get Started </a>
+</div>
+</div>

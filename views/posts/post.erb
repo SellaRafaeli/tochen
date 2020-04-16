@@ -1,0 +1,59 @@
+<%
+  post = $posts.get(pr[:id])
+%>
+
+<style>
+#editor {
+  font-size: 16px;
+  font-family: Lora;
+  direction: rtl;
+  text-align: right;
+}
+
+.title {
+  direction: rtl;
+}
+.cu .title, .cu .body {
+  border:1px solid whitesmoke;
+}
+</style>
+
+<div> edited at <span class='edited_at'> </span> </div>
+<div id='editor' class="<%='cu' if cu %>">
+  <h1 class='title refreshOnChange' <%= "contenteditable" if cu %>>
+    כותרת
+  </h1>
+
+  <div class='body refreshOnChange' <%= "contenteditable" if cu %>>
+    תוכן
+  </div>
+</div>
+
+<script>
+
+var $title = $('#editor .title')
+var $body  = $('#editor .body')
+
+function getData() {
+  var data = {}
+  data.title = $title.text().trim();
+  data.body  = $body.text().trim(); 
+  return data;
+}  
+function setData(data) {
+  $title.text(data.title);
+  $body.text(data.body);
+}
+  
+function onDataChange() {
+  var data = getData();
+  console.log('data is',data);
+  //setData(data);
+  $('.edited_at').text(new Date);
+}
+
+$('.refreshOnChange').on("input", ()=> { 
+  clearTimeout(window.onDataChangeTimeout);
+  window.onDataChangeTimeout = setTimeout(onDataChange,500);
+});
+</script>

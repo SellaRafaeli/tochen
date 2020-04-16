@@ -1,0 +1,36 @@
+<% 
+  show_help = false
+
+  err = nil
+  # if !cu[:paid] && cu[:medium] == 'sms' && cu[:num_msgs_per_day] > 1 
+  #   err = "To receive more than #{MAX_FREE_TEXT_MESSAGES_PER_DAY} SMS messages per day, you can <a href='/donate'>support mindy</a>."
+  # elsif cu[:medium] == 'sms' && !(cu[:num].to_s.size>5)
+  #   err = 'Phone number is invalid.'
+  # end
+  events = $events.all(user_id: cuid)
+%>
+
+<h1> אני </h1>
+
+<div>
+		<form action='update_me' method='post' class='form1'>      
+      <label> שם </label>
+      <input name=name value="<%=cu['name']%>" /> 
+      <br/>
+
+      <label> מי את/ה? </label>
+      <textarea name=desc value=""><%=cu['desc']%></textarea> 
+      <br/>
+      <button class='btn btn-raised btn-info'>עדכן!</button>
+		</form>
+
+    <div>
+      <!-- <p> האירועים שלי </p> -->      
+    </div>
+</div>
+
+<div class='events'>
+  <% events.each do |ev| %>
+    <%= erb :'events/card', locals: {ev: ev} %>
+  <% end %>
+</div>

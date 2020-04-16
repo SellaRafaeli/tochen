@@ -1,0 +1,96 @@
+<style>
+.top-nav {
+  margin: 20px;
+}
+.footer a {
+  margin: 20px;  
+  /*color: #209CEE;*/
+  color: #aab8c2
+}
+
+.top-nav a:not(.logo) {
+  color: black;
+  margin: 20px;
+  font-size: 14px;
+}
+
+
+@media screen and (max-width: 600px) {
+  .top-nav {
+    margin: 10px;
+    border-bottom:1px solid whitesmoke;
+    position: relative;
+  }
+  .top-nav a {
+    display: none;
+    margin: 5px;
+  }
+  .top-nav a:not(.logo).expanded {
+    display: block;
+    padding: 15px;
+    background:whitesmoke;
+  }
+  .top-nav a.logo {
+    display: block;
+  }
+  .hamburger {
+    display: block;
+  }
+}
+</style>
+
+<%
+  logo = '/favicon.ico'
+%>
+
+<% if _req.path=='/z' %>
+  <% if is_admin %>
+   <!--  <a href='/admin'> admin </a> -->
+  <% end %>
+<% else %>
+
+  <div class='top-nav'>
+    <% if _req.path!='/z' %>
+    <!-- <a class='logo' href='/'> <img src='<%=logo%>' style='height:30px'/></a> -->
+    <% end %>       
+
+
+    <a class='' href='/'>ראשי</a>    
+    <% if cu %>
+    <a class='' href='/me'>אני (<%=cu['email']%>)</a>
+    <% else %>
+    <!-- <a class='' href='/signup'>Sign Up</a> -->
+    <% end %>
+    <a class='' href='/about'>אודות</a>
+    
+    <% if cu %>
+      <a class='' href='/logout'>לצאת</a>
+    <% else %>
+      <a class='' href='/signup'>הרשמה</a>
+      <a class='' href='/login'>לוגין</a>    
+    <% end %>
+    <form style='display: inline-block' action='/create' method=post><button class='btn btn-raised btn-primary'>ליצור!</button></form>
+
+    <% if false %> 
+      <a href='/me'> <%= cu[:email] %> </a>
+      <% if cu[:paid] %>
+        <a href='#'><b style='color: goldenrod'> thanks for your support! </b></a>
+      <% else %>
+<!--         <a href='/donate'> support mindy </a> -->
+      <% end %>
+      
+      <a href='/logout' onclick="return confirm('Are you sure?')"> logout </a> 
+    <% else %>
+      <!-- <a href='/login'> login </a> -->
+      <!-- <a href='/#pricing'> pricing </a> -->
+      <!-- <a href='/#contact'> contact </a>
+      <a href='/#faq'> FAQ </a> -->
+    <% end %>
+
+    <%= erb :'header/hamburger' %>
+    
+    <% if is_admin %>
+      <!-- <a href='/admin'> admin </a> -->
+    <% end %>
+  </div>  
+<% end %>  

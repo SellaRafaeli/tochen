@@ -1,0 +1,226 @@
+<%
+  # group_a = ['I want to be more relaxed.', 'I want to be more mindful.', 'I want to be more calm.', 'I want to be more peaceful.']
+  
+  # how_you_stay = "relaxed and take things easy."
+  # desired_verb = "relax"
+
+  if get_brand == ENTREP_MODE
+    msg1 = 'personalized messages to sustain your entrepreneurship drive and motivation' if get_brand == ENTREP_MODE 
+    outcomes = ['ambitious', 'driven', 'confident', 'motivated'] 
+    group_b = ['It\'s a long journey - you\'re going to do it.', "Keep on trucking!", 'Be strong. All entrepreneurs struggle.', 'You are betting on yourself.']
+    group_c = ['I am awesome', 'I am confident', 'I am driven', 'I am in control']
+    bad_situation = 'in your entrepreneurship?'
+  else 
+    msg1 = 'personalized mindfulness reminders to improve your mental well-being'
+    outcomes = ['mindful', 'relaxed', 'calm', 'optimistic']
+    group_b = ['Everything is OK.', "I am confident in myself.", 'I like to take life easy.', 'I believe in myself.']
+    group_c = ['I am chill', 'I am calm', 'I am confident', 'I am in control']
+    bad_situation = 'when you encounter a stressful situation?'
+  end
+  
+  group_b = group_b.map {|s| "\"#{s}\""}
+%>
+
+<style>
+.onboarding_container {
+  /*top: 0;
+  z-index: 999;
+  width: 100%;
+  background-color: whitesmoke;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 800px;*/
+}
+.onboarding {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.onboarding p, .onboarding label {
+  padding: 20px;
+  font-size: 20px;
+  color: black;
+  font-weight: 200;
+  text-align: center;
+}
+
+.ob-step {
+  /*min-height: 200px;*/
+  text-align: center;
+}
+.ob-step textarea, .ob-step input {
+  width: 90%;
+  max-width: 500px;
+}
+.boxes_group {
+  /*text-align: center;*/
+  /*max-width: 200px;*/
+}
+.boxes_group .box {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #209CEE;
+  margin: 10px;
+  color: whitesmoke;
+  cursor: pointer;
+  text-transform: none;
+  white-space: normal;
+}
+.boxes_group .box.selected {
+  background-color: #6bd1ff;
+  color: black;
+}
+</style>
+
+<div class='onboarding_container'>
+  <div class='onboarding'>
+    <form id=onboarding_form method=post action=/onboarding >
+
+      <p class='ob-intro'> Welcome :) You can call me Mindy. 
+        <br/>
+        <br/>I'll be sending you <%= msg1 %>.
+        
+        <!-- <br/> You can configure your settings in your profile. -->        
+        Tell me a bit about yourself so I can personalize your algorithm. 
+      </p>
+
+      <div class='ob-intro ob-step znoDisplay'>
+        <label> What should I call you? </label>
+        <br/>
+        <input class=input1 name='name' autofocus onblur="$('.user_name').text($(this).val().trim())"/>
+        <%= erb :'onboarding/onboarding_btns' %>
+      </div>
+
+      <% if false %>
+      <div class='ob-step noDisplay'>
+        <label> Hey, <span class=user_name></span>. Should I be in touch with you via email or sms? </label>
+        <br/>
+        <%= erb :'onboarding/boxes_group', locals: {opts: MEDIUMS, field_name: 'medium', cb: 'onMediumSelect'} %>
+        <br/>
+
+        <span class='onboarding_phone_input noDisplay'>
+          <%= erb :'me/phone_input' %>
+          <br/>
+          <br/>
+          <%= erb :'onboarding/onboarding_btns' %>
+        </span>
+      </div>
+
+      whe
+      <div class='ob-step noDisplay'>
+        <label> Great! 
+          <br/><br/>We will communicate via <span class='medium'></span>. You can change your settings later in your profile screen, too.
+          <br/>
+          <br/>
+          <%= erb :'onboarding/onboarding_btns' %>
+      </div>
+      <% end %>
+
+      <div class='ob-step noDisplay'>
+        <label>  
+          <span class='user_name'></span>, how would you like me to help you feel?
+        </label>
+        <br/>
+        <%= erb :'onboarding/boxes_group', locals: {opts: outcomes, field_name: 'ob_outcome'} %>
+      </div>
+
+      <div class='ob-step noDisplay'>
+        <label> Thank you.
+        <br/><br/>I will personalize your content to help you be <span class='ob_outcome'> throughout your day.</span>.
+
+        <br/><br/>I will now ask you a couple of quick questions to help me adapt my algorithm for you.</label>
+        <br/>
+        <%= erb :'onboarding/onboarding_btns' %>
+      </div>
+
+      <div class='ob-step noDisplay'>
+        <label>
+        <br/>Which of the following statements makes you feel the most <span class='ob_outcome'></span>?</label>
+        <br/>
+        <%= erb :'onboarding/boxes_group', locals: {opts: group_b, field_name: 'ob2'} %>
+      </div>
+
+      <div class='ob-step noDisplay'>
+        <label>
+        <br/>Great! How about the following statements; which one resonates with you the most?</label>
+        <br/>
+        <%= erb :'onboarding/boxes_group', locals: {opts: group_c, field_name: 'ob3'} %>
+      </div>
+
+      <% if false %>
+      <div class='ob-step noDisplay'>
+        <label> Fantastic. <br/><br/>Last question: In your own words, what helps you stay <span class='ob_outcome'></span> <%=  bad_situation %> </label>
+        <br/>
+        <textarea class=input1 name='think_to_relax'></textarea>
+        <br/>
+        <%= erb :'onboarding/onboarding_btns' %>
+      </div>
+      <% end %>
+      
+      <div class='ob-step noDisplay'>
+        <label> Great input. You're all done. 
+          <br/><br/>I'll be reaching out to you. You can give me feedback any time in the future to optimize my assistance.
+          <br/><br/> Have a great day. :) </label>
+        <br/>
+        <%= erb :'onboarding/onboarding_btns', locals: {skip_next: true} %>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+<script>
+function closeOb() {
+  document.location = '/me';
+}
+
+function submitOb() {
+  var data = $('#onboarding_form').serializeObject();
+  data.onboarding_sent = true;
+  $.post('/onboarding', data).then(res => {
+    console.log('onboarding res', res)
+    if (!!res.has_push) {
+      $('#device_push_opt').removeClass('hidden');
+    }
+  });
+}
+
+function nextObStep() {
+  window.scroll(0,0);
+  $('.ob-intro').fadeOut();  
+  
+  setTimeout(()=> {
+    submitOb();
+    var cur  = $('.ob-step:not(.noDisplay)');
+    var next = cur.next('.ob-step.noDisplay');
+    next.removeClass('noDisplay');  
+    cur.addClass('noDisplay');  
+    next.find('input').focus();  
+    next.find('textarea').focus();
+    if (!next.length) {
+      closeOb();
+      location.reload();
+    }
+  },350);
+}
+
+function onMediumSelect(box) {
+  if ($(box).text().trim() == 'sms') {
+    $('.onboarding_phone_input').show();
+  } else {
+    nextObStep();
+  }
+}
+
+function onBoxSelect(el) {
+  $(el).siblings().removeClass('selected'); 
+  $(el).addClass('selected'); 
+  $(el).closest('.ob-step').find('.boxes_input').val($(el).text().trim()); 
+}
+
+$(document).ready(function() {
+  onInputEnter($('.ob-step input'),nextObStep);
+});
+</script>

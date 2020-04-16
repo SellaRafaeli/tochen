@@ -1,0 +1,28 @@
+<%
+  roles = [
+    {location: 'sf', title: 'Senior Web UI/UX Designer', desc: 'Mindy is looking for a web designer to design our web application screens as well as conversational interface with users. Requires substantial experience (5+ years) in designing web GUIs as well chatbot UX experience.'},
+    {location: 'sf', title: 'Senior Lead Mobile Developer (React Native)', desc: 'Mindy is looking for a senior lead mobile developer to manage development of Mindy\'s mobile application, written in React Native.'},
+    {location: 'sf', title: 'VP Marketing', desc: 'Mindy is looking for a B2C expert to lead its online marketing and brand management efforts. Experience necessary in online brand management.'}
+  ]
+%>
+
+<style>
+.careers {
+  margin-top: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<h3> Mindy - Careers </h3>
+<div class='careers'>
+  <p> To apply, please reach out directly to <a href=mailto:ceo@usemindy.com>ceo@usemindy.com</a> or <a href='mailto:cto@usemindy.com'>cto@usemindy.com</a>, as appropriate. </p>
+
+  <% roles.each do |role| %>
+
+  <div class='single_role'>
+    <h3><%= role[:title] %> </h3>
+    <p><%= role[:desc] %> </p>
+  </div>
+  <% end %>
+</div>

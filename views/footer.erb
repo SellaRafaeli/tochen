@@ -1,0 +1,50 @@
+<%
+  links = [
+    {link: '/about', text: 'About'},
+    {link: '/faq', text: 'FAQ'},
+    {link: '/terms_of_service', text: 'Terms of Service'},
+    {link: '/contact', text: 'Contact'},
+    # {link: '/pricing', text: 'Pricing'},
+    {link: '/press', text: 'Press'},
+    {link: '/blog', text: 'Blog'},
+    {link: '/status', text: 'Status'},
+    {link: '/jobs', text: 'Jobs'},
+    # {link: '/cookies', text: 'Cookies'},
+    {link: '#', text: "© #{Time.now.year} usemindy.com"},
+  ]
+
+  # links.insert(3,{link: '/donate', text: 'Support Mindy'}) if cu
+%>
+<div class='footer'>   
+  <% links.each do |link| %>
+    <a href='<%=link[:link] || '#'%>'> <%= link[:text]%> </a>
+  <% end %>
+</div>
+
+
+
+
+
+
+<!-- <style>
+.footer-color { 
+    background-color: #c2d4d8;
+    color: #ffffff;
+    
+}
+</style>
+
+<footer class="container-fluid footer-color text-center" style='direction: ltr'>
+  <p style='margin-top:10px'> 2017 (c) <%= $app_name %>
+  <% if cu %>
+    <a href="/me">Me (<%=cu['name']%>)</a>
+    <a href="/logout">Log Out</a>
+  <% end %>
+    <a href="/contact">Contact Us</a>
+    <a href="/about">About</a>
+    <a href="/terms_of_service">Terms of Service</a>
+    <% if !$prod %>
+    <a style="color:blue;" href="/admin/dashboard"> Admin </a>
+    <% end %>
+  </p> 
+</footer> -->

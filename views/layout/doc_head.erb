@@ -1,0 +1,25 @@
+<head>
+  <title><%=html_title%></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->  
+  <%= erb :"layout/css_files" %>    
+  <%= erb :'layout/js_scripts'%>  
+
+  <script>
+  function postJSON(url, data, success, failure) {
+  	$.ajax({
+	    type: "POST",
+	    url: url,
+	    // The key needs to match your method's input parameter (case-sensitive).
+	    data: data, //JSON.stringify({ Markers: markers }),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: success,
+	    failure: failure
+    });
+	}
+
+  function setDevicePushToken(deviceToken, successCB, failCB) {
+    $.post('/my_device_push_token', {deviceToken: deviceToken}, successCB, failCB)
+  }
+  </script>
+</head>

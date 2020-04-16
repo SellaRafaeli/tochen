@@ -1,0 +1,1 @@
+<label> Your phone number: </label> <%= erb :'me/area_codes_dropdown' %> <input placeholder='555-202-1234' pattern=.{8,} title='8 digits minimum' name=num value="<%=cu[:num].to_s.sub(cu[:country_code].to_s,'')%>" style='width: 150px'  autofocus /> 

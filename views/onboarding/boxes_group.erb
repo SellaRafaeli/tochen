@@ -1,0 +1,19 @@
+<% 
+  cb ||= nil
+%>
+<div class='boxes_group ct'>          
+  <% opts.each_with_index do |item, idx| %>
+    <% if idx == 2 %> 
+    <br/>
+    <% end %>
+    <span class='box btn btn-sm' onclick="onBoxSelect(this); 
+    var val = $(this).text().trim();
+    $('.<%=field_name%>').text(val);
+    <% if cb %> <%= cb %>(this) 
+    <% else %> setTimeout(()=>nextObStep(), 750) <% end %>"> 
+      <%= item %> 
+    </span>        
+  <% end %>
+</div>
+
+<input hidden name='<%=field_name%>' class='boxes_input'/>

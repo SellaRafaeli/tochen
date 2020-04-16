@@ -1,0 +1,19 @@
+<% 
+  user = cu
+  msgs = $sent_messages.get_many(user_id: user[:_id]).reverse 
+%>
+
+<h3> Chat </h3>
+
+<div class='chat_container'>
+
+  <% msgs.each do |msg| %>
+    <div class='single_chat_msg'>
+      <%= msg[:msg] %>
+    </div>
+  <% end %>
+  
+  <form>
+    <input name/> <button class='btn btn-raised'> send </button>
+  </form>
+</div>

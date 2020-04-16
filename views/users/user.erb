@@ -1,0 +1,10 @@
+<%
+  user = $users.get(pr[:id])
+%>
+<%= user.to_json %>
+
+<h1> <%= user['name'] %></h1>
+<p> <%= user['location'] %></p>
+<p> <%= user['desc'] %></p>
+<p> <%= user['contact'] %></p>
+

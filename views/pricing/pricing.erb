@@ -1,0 +1,93 @@
+<%
+  always_online = '24/7 AI psychological support'
+
+  prices = [
+    {title: 'Free', amount: 'Free', per: '', subtitle: 'Get to know Mindy', features: [always_online, 'Up to 10 daily interactions', "Unlimited emails, up to #{MAX_FREE_TEXT_MESSAGES_PER_DAY} SMS message per day"]},
+    {title: 'Serious', amount: '5', per: '/month', subtitle: 'Use Mindy\'s Full Powers', features: [always_online, "Unlimited emails, up to #{MAX_FREE_TEXT_MESSAGES_PER_DAY} SMS message per day", 'Dedicated customer support']},
+    {title: 'Enterprise', amount: '100', per: '/month', subtitle: 'Mindy for Organizations', features: [always_online, 'Unlimited number of users']}
+  ]
+%>
+<style>
+.price_boxes {
+  letter-spacing: .12em;
+}
+.price_box {
+  border-radius: 4px;
+  border:3px solid whitesmoke;
+  padding: 20px;
+}
+.price_title {
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgba(79,135,234,.1);
+  color: #4f87ea;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.price_subtitle {
+  color: #869ab8;
+  font-size: 17px;
+}
+.price_dollar {
+  display: inline-block;
+  position: relative;
+  bottom:5px;
+  font-size: 3rem;
+}
+.price_num {
+  font-size: 3.8125rem;
+  display: inline-block;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.price_text {
+  display: inline-block;
+  font-size: 3rem;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+.price_features {
+  text-align: left;
+  padding-left: 50px;
+  margin-top: 30px;
+}
+.price_feature {
+  margin-top: 20px;
+}
+.price_feature_checkmark {
+  display: inline-block;
+  width: 5%;
+} 
+.price_feature_text {
+  display: inline-block;
+    position: relative;
+    bottom: 9px;
+    left: 10px;
+    line-height: 1.6;
+    font-weight: 400;
+    width: 90%;
+    /* border: 1px solid red; */
+    padding-left: 10px;
+    vertical-align: text-top;
+}
+</style>
+<h3 id=pricing> Pricing </h3>
+
+<% if true %>
+<h3> Mindy is free for now. </h3>
+<% else %>
+<div class='mega-msg'>Mental well-being is worth paying for.</div>
+
+<div class='mega-submsg'>Treat yourself and your loved ones to a better mental life.</div>
+
+
+<br/>
+
+<div class='price_boxes row'>
+  <% prices.each do |price| %>
+    <%= erb :'pricing/price_box', locals: price %>
+  <% end %>
+</div>
+
+<% end %>

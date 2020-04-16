@@ -1,0 +1,71 @@
+<%
+use_stripe_prod = ENV['USE_STRIPE_PROD'] == 'true'
+stripe_btn_id   = use_stripe_prod ? "checkout-button-plan_EuCvtjM4zbYR0q" : "checkout-button-plan_EuCjldhDkwYwYt"
+
+button_text = 
+plan = pr[:amount]
+
+
+plans = {
+  '1' => 'plan_FMMvg6WSZ0qI2B',
+  '4' => 'plan_FLtCxTspuI6Ucx',
+  '5' => 'plan_FLdZnRzIYn1hVZ',
+  '12' => 'plan_FLtDtUUxMRN13d'
+}
+
+plan = '5' if !plans[plan]
+plan_id = plans[plan.to_s] || plans['4']
+# test card: 4242424242424242
+%>
+
+<h1>
+<% if is_admin %> 
+<%#= cu.to_json %>
+<% end %>
+</h1>
+<button
+  zstyle="background-color:#209CEE;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1.2em" 
+  class='btn btn-raised btn-info'
+  id="<%= stripe_btn_id %>" role="link">
+  Let's Go <%= use_stripe_prod ? "" : "(staging)" %>
+</button>
+
+<div id="error-message"></div>
+
+<script>
+$(document).ready(function() {
+  <% if use_stripe_prod %>
+  var stripe = Stripe('pk_live_Gh1kxLfeIef81yDlPEGylnNu00FTrMY5S2');  
+  var checkoutButton = document.getElementById('checkout-button-plan_EuCvtjM4zbYR0q');
+  <% else %>
+  var stripe = Stripe('pk_test_MYDb1N30sX4oaAR2POucBUeA00NxQE7W2M');
+  var checkoutButton = document.getElementById('checkout-button-plan_EuCjldhDkwYwYt');
+  <% end %>
+
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      <% if use_stripe_prod %>
+      items: [{plan: "<%=plan_id%>", quantity: 1}],
+      <% else %>
+      items: [{plan: 'plan_EuCjldhDkwYwYt', quantity: 1}],
+      <% end %>      
+      clientReferenceId: "<%= cu['_id'] %>",
+      // Note that it is not guaranteed your customers will be redirected to this
+      // URL *100%* of the time, it's possible that they could e.g. close the
+      // tab between form submission and the redirect.
+      successUrl: '<%= $root_url %>' + '/donation_success',
+      cancelUrl:  '<%= $root_url %>' + '/donation_failure',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });    
+});
+</script>

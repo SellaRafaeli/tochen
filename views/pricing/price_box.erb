@@ -1,0 +1,38 @@
+<div class='col-md-4 col-sm-12'>
+  <div class='price_box ct'>
+    <div class='price_category'>
+        <div class='price_title ct badge badge-pill badge-primary'><%= title %></div>
+
+        <div class='price_amount'>
+          <div class='price_dollar'><%= amount.to_i > 0 ? '$' : '' %></div>
+          <div class='price_num'><%= amount %></div>
+          <div class='price_text'><%= per %></div>
+          <div class='price_subtitle'><%= subtitle %></div>        
+        </div>
+
+        <div class='price_features'>
+          <% features.each do |feature| %>
+          <div class='price_feature'>            
+            <div class='price_feature_checkmark'>
+              <%= erb :'partials/checkmark' %>
+            </div>
+            <div class='price_feature_text'> <%= feature %> </div>            
+          </div>
+          <% end %>
+
+          <div class='price_feature'>
+            <div class='price_feature_checkmark'></div>
+            <div class='price_feature_text'></div>
+          </div>
+        </div>
+    </div>
+
+    <% if cu %>
+      <% if amount.to_i > 0 %>
+      <%= erb :'other/stripe_button' %>
+      <% end %>
+    <% else %>
+      <a href='/signup' class='btn btn-raised btn-info'>GET STARTED</a>
+    <% end %>
+  </div>
+</div>

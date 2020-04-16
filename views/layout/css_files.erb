@@ -1,0 +1,196 @@
+<link rel="stylesheet" href="/css/lib/bootstrap3.min.css">
+<link rel="stylesheet" href="/css/lib/font-awesome_4.5.0.min.css">  
+<link rel="stylesheet" type="text/css" href="/css/lib/bootstrap-material-design.min.css">
+<link rel="stylesheet" type="text/css" href="/css/lib/ripples.min.css">  
+
+<style>
+body {
+  background-color: white;  
+  text-align: center;
+  direction: rtl;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.container {
+  max-width: 700px;
+}
+/*blues 
+#_209CEE
+#_75a4f1*/
+.blue1 {
+  color: #209CEE;
+}
+.bold {
+  font-weight: 400;
+}
+.superbold {
+  font-weight: 900;
+}
+h1 {
+  font-weight: 900; 
+  color: #209CEE;
+}
+.container {
+  padding-bottom: 90px;
+}
+.center_col {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.navbar {
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+}
+.navbar-nav li a:hover { 
+}
+.centered_absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ct {
+  text-align: center;
+}
+.mega-msg {
+  text-align: center;
+  font-size: 4rem;
+  margin-top: 30px;
+}
+.mega-submsg {
+  text-align: center;
+  font-size: 2rem;
+  margin:30px;
+}
+.hp .mega-msg {
+  font-size: 3rem;
+}
+.noDisplay {
+  display: none;
+}
+.ib {
+  display: inline-block;
+}
+form, form label {
+	color: black;
+  font-weight: 300;
+}
+textarea {
+  border: 3px solid whitesmoke;
+  resize: none;
+  position: relative;
+  top: 3px;
+  width: 350px;
+  height: 100px;
+  vertical-align: top;
+  padding: 7px;
+}
+.well1 {
+  /*border: 1px solid #209CEE; /*#e3e3e3;*/
+  /*border-radius: 4px;*/
+  font-size: 140%;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;  
+  padding: 11px 9px;
+  color: white;
+  background-color: white;
+  text-align: center;
+  font-size: 13px;
+  border-top: 1px solid #aab8c2;
+}
+.b1 {
+  border:1px solid red;
+}
+.input1 {
+  margin: 20px;
+  position: relative;
+  top: 2px;
+  width: 200px;  
+}
+input{
+  border: 2px solid whitesmoke;
+  padding: 7px;
+}
+select {
+  border: 1px solid #209CEE;
+  color: #209CEE;
+  background-color: white;
+  font-weight: bold;
+}
+.form1 label {
+  width: 150px;
+  display: inline-block;
+  margin-bottom: 50px;
+}
+.ib {
+  display: inline-block;
+}
+.mt20 { margin-top: 20px; }
+.mt30 { margin-top: 30px; }
+.w100 { width: 100px; }
+.w200 { width: 200px; }
+.w300 { width: 300px; }
+.pRelative { position: relative; }
+p, ul {
+  font-size: 16px;
+}
+
+a {
+  color: #209CEE
+}
+z:hover {
+  color: #1abc9c !important;
+  cursor: pointer !important;
+}
+
+/*faqs*/
+.faqs {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.faq {
+  margin-bottom:35px;
+}
+.faq-title {
+  font-size:20px;
+  margin-bottom:10px;  
+  font-weight: 400;  
+}
+.faq-text {
+  font-size: 17px;
+}
+
+.single_event_card {
+  background-color: whitesmoke;
+  padding: 20px;
+  max-width: 500px;
+  margin: 5px auto;
+}
+</style>
+
+
+<%= erb :'layout/css/checkmark.css' %>
+
+<% use_material_css = false %>
+<% if use_material_css == true %>
+  <!-- <link rel="stylesheet" href="/css/lib/materialize.min.css">
+  <script src="/css/lib/materialize.min.js"></script> -->
+
+  <!-- http://fezvrasta.github.io/bootstrap-material-design/ -->
+  
+
+<% end %>  
+<%#= erb :"material_design" %>  

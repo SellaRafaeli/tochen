@@ -1,0 +1,32 @@
+<%
+value = (cu || {})[:email] 
+%>
+<style>
+.contact_form label {
+  width: 110px
+}
+</style>
+<h3 id=contact> Contact Us </h3>
+
+<div class='mega-msg'> We are fanatical about helping you. </div>
+
+<div class='mega-submsg'> Mindy's mission is to help improve people's mental well-being and quality of life.<br/> Let us know how Mindy can help - in any way. </div>
+<form action='/feedback' method='post' class='center_col contact_form'>
+    <div>
+  		<label> Your email: </label> <input class='input1' placeholder='you@gmail.com' name='email' value="<%=value%>" style='margin-left: 0'/>
+  		<br/>
+  		<label> Your feedback:</label> <textarea name='text' placeholder='It would be great if...'></textarea>
+
+  		<br/>
+      <br/>
+      <div class='ct'>
+  		  <button class='btn btn-info btn-raised'> Submit Feedback </button>
+      </div>
+    </div>
+    <br/>
+    <div style='letter-spacing: 0.03em;'>
+      You can also write our <a href="mailto:ceo@usemindy.com">CEO</a>, <a href="mailto:cto@usemindy.com">CTO</a>, or <a href="mailto:help@usemindy.com">Customer Support Evangelist</a> directly.
+    </div>
+</form>
+
+<!-- <p> Please feel free to reach out to me directly with any feedback or suggestion: <a href="mailto:sella.rafaeli@gmail.com" target="_top">sella.rafaeli@gmail.com</a>.</p> -->

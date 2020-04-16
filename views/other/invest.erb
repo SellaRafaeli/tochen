@@ -1,0 +1,26 @@
+<%
+  faqs = [
+    {title: 'Why should I invest in Mindy?', text: 'You should invest in Mindy if you believe you will be able to make a substantial financial return on your investment, or if you would like to invest in a tool which you believe creates value (in the sense of mental well-being) for its users, or both.'},
+    {title: 'Does Mindy create value for its users?', text: 'The best way to convince you is for you try it out for yourself, and/or get somebody you care about to try it and give you their feedback. Ideally, somebody who needs help with anxiety or worries, who could benefit from more emotional support. <br/><br/>If they/you are not satisfied with the value after a month of using Mindy, you might not want invest yet, and we\'d be happy to hear your <a href="/contact">feedback</a>. <br/><br/>If they/you are satisfied after a month of using Mindy, then you should consider investing.'},
+    {title: 'What are Mindy\'s current growth numbers?', text: 'TBD'},
+    {title: 'What is Mindy\'s  potential market size?', text: 'TBD'},
+  ]
+%>
+
+<h3 id=faq>Investors</h3>
+
+<div class='mega-msg'>Mindy: Investors</div>
+<div class='mega-submsg'>If you might be interested in investing in Mindy, you should read Mindy's <a href='/faq'>FAQ</a>, and then read this.</div>
+<br/>
+
+<div class='faqs'>
+<% faqs.each do |faq| %>
+  <div class='faq'>
+    <div class='faq-title'><%= faq[:title] %></div>
+    <div class='faq-text'><%= faq[:text] %></div>
+  </div> 
+<% end %>
+<div class='ct'>
+  <a style='width: 300px' class='btn btn-raised btn-info' href='/signup'> Get Started </a>
+</div>
+</div>

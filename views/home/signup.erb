@@ -1,0 +1,44 @@
+<% 
+  is_fullpage = _req.path=='/signup'
+  
+  fb_login_route = "https://www.facebook.com/v4.0/dialog/oauth?client_id=472876716648358&redirect_uri=#{FB_REDIRECT_URI}&state=foo"
+%>
+<h3 id=signup> הרשמה </h3>
+<form action='/signup' method='post' >
+		<label class='w200'>  אימייל שלך </label>
+		<input class='input1' value="<%=pr[:email]%>" placeholder='you@gmail.com' name='email' <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
+
+    <!-- <div><small>We won't show this to anybody.</small></div> -->
+
+    <br/>
+
+    <label class='w200'> בחר/י סיסמא </label>
+    <input class='input1' value="<%=pr[:email]%>" placeholder='סיסמא חדשה' name='password' type=password <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
+    
+    <% if pr[:enable_token] %>
+    <br/>
+    <label class='w200'> Your token </label>
+    <input name='token' class='input1' <%="autofocus" if pr[:email]%> placeholder='e02ca21e-5ead-4753-914a-246f8dc85931' style='margin-right: 5px'/>
+    <br/>
+    <% end %>
+    <input hidden name='style' value="<%=get_brand%>" />
+    <br/>
+		<button class='btn btn-raised btn-info'>קדימה</button>
+
+    <% if pr[:fb] %>    
+    <a href="<%=fb_login_route%>" class='btn btn-raised btn-info'> Connect with FB </a>
+    <% end %>
+
+		<br/>
+
+    <% if false && is_fullpage %>
+      <% num = [0,1,2,3,4].sample %>
+      <div class=ct>
+        <img id='main_img' src='/img/msg<%=num%>.jpg' style='width: 50%'/>
+      </div>
+    <% end %>
+		<!-- <p> We're not trying to sell you anything, we're trying to make you happy. <a href='/about'>Learn more.</a> </p> -->
+		<!-- <p> No commitment, no money, no ads. We run on <a href='/donate'>donations.</a> </p> -->
+		<br/>
+	<br/>
+</form>

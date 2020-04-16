@@ -1,0 +1,16 @@
+<style>
+.status_msg {
+  position: relative;
+  bottom: 5px;
+  left: 10px;
+}
+</style>
+
+<h1> Status </h1>
+<% ['API', 'Neural Networks', 'Web app', 'Processing Queue', 'NLP Cluster', 'Databases'].each do |thing| %>
+<div class='well'>
+  <%= erb :'partials/checkmark' %>
+<span class='ib status_msg'>
+  <b> <%= thing %> </b>: All systems operational. (<%=Time.now.utc - 5.minutes %>)</span>
+</div>
+<% end %>

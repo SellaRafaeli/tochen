@@ -1,0 +1,5 @@
+<label> Get messages by: </label> <select name="medium" style='width: 120px'>
+  <% (MEDIUMS).each do |medium| %>
+    <option value=<%=medium%> <%= 'selected' if cu[:medium]==medium%>><%=medium%></option>
+  <% end %>
+</select> 
