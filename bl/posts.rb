@@ -1,7 +1,8 @@
 $posts = $mongo.collection('posts');
 
 post '/create' do 
-	res = $posts.add({})	
+	require_user
+	res = $posts.add({user_id: cuid})	
 	redirect "/posts/#{res[:_id]}"
 end
 

@@ -7,19 +7,23 @@
   # elsif cu[:medium] == 'sms' && !(cu[:num].to_s.size>5)
   #   err = 'Phone number is invalid.'
   # end
-  events = $events.all(user_id: cuid)
+  # events = $events.all(user_id: cuid)
 %>
 
 <h1> אני </h1>
 
 <div>
 		<form action='update_me' method='post' class='form1'>      
-      <label> שם </label>
-      <input name=name value="<%=cu['name']%>" /> 
+      <label> אימייל: <%= cu['email'] %> </label>
+      <div></div>
+
+      <label> שם משתמש </label>
+      <input class='input1 ltr' placeholder='' value="<%=cu['handle']%>" name='handle' style='margin-right: 5px; margin-left: 0'/><span style='position: relative; top: 2px; font-weight: bold'>@</span>
+      
       <br/>
 
-      <label> מי את/ה? </label>
-      <textarea name=desc value=""><%=cu['desc']%></textarea> 
+      <!-- <label> מי את/ה? </label>
+      <textarea name=desc value=""><%=cu['desc']%></textarea>  -->
       <br/>
       <button class='btn btn-raised btn-info'>עדכן!</button>
 		</form>
@@ -27,10 +31,4 @@
     <div>
       <!-- <p> האירועים שלי </p> -->      
     </div>
-</div>
-
-<div class='events'>
-  <% events.each do |ev| %>
-    <%= erb :'events/card', locals: {ev: ev} %>
-  <% end %>
 </div>

@@ -11,6 +11,11 @@ post '/update_me' do
 
 	data = pr
 
+	if (user = $users.get(handle: data[:handle])) && (user[:_id]!=cuid)
+		flash_err 'שם משתמש תפוס.'
+		redirect '/me'
+	end
+
 	user = $users.update_id(cu['_id'],data)
 	flash.message = 'עדכנתי!'
 
@@ -18,10 +23,8 @@ post '/update_me' do
 end
 
 
-get '/users/:id' do
-	user = $users.get(pr[:id])
-	redirect '/' unless user
-	erb :'users/user', default_layout
+get '/@*/*' do 
+	erb :'users/user', default_layout	
 end
 
 # get '/onboarding' do

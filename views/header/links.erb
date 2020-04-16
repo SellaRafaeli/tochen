@@ -16,10 +16,16 @@
 
 
 @media screen and (max-width: 600px) {
+  .container {
+    margin-top:10px;
+    position: relative;
+    top: 30px;
+  }
   .top-nav {
     margin: 10px;
-    border-bottom:1px solid whitesmoke;
+/*    border-bottom:1px solid whitesmoke;*/
     position: relative;
+
   }
   .top-nav a {
     display: none;
@@ -35,6 +41,10 @@
   }
   .hamburger {
     display: block;
+  }
+
+  .create_form {
+    float: left;
   }
 }
 </style>
@@ -59,7 +69,7 @@
     <a class='' href='/'>ראשי</a>    
     
     <% if cu %>
-      <a class='' href='/me'>אני (<%=cu['email']%>)</a>
+      <a class='' href='/me'><%=cu['handle']%>@</a>
     <% else %>
     <!-- <a class='' href='/signup'>Sign Up</a> -->
     <% end %>
@@ -75,7 +85,7 @@
     <% end %>
 
     <% if cu && !is_post_page %>
-    <form style='display: inline-block' action='/create' method=post><button class='btn btn-raised btn-primary'>ליצור!
+    <form class='create_form' style='display: inline-block' action='/create' method=post><button class='btn btn-raised btn-primary'>ליצור!
     </button></form>
     <% end %>
 

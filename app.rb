@@ -13,7 +13,7 @@ Bundler.require
 puts "loading dotenv..."
 Dotenv.load
 
-$app_name   = 'תוכן'
+$app_name   = 'tochen'
 
 require './setup'
 require './my_lib'
@@ -93,8 +93,9 @@ end
 post '/signup' do
 	email    = pr[:email].to_s.downcase
 	password = pr[:password].to_s.downcase
+	handle   = pr[:handle].to_s.downcase
 
-	if !(email.present? && password.present?)
+	if !(email.present? && password.present? && handle.present?)
 		flash_err('Missing password or email.') 
 		redirect '/signup'
 	end
@@ -103,8 +104,8 @@ post '/signup' do
 		$users.delete_one({email: 'test'})
 	end
 
-	if user = $users.get(email: email)
-		flash_err('האימייל תפוס.')
+	if (user = $users.get(email: email)) || (user = $users.get(handle: handle))
+		flash_err('האימייל או שם המשתמש תפוסים.')
 		redirect '/signup'
 	end
 
@@ -123,9 +124,10 @@ post '/signup' do
 	# 	end
 	
 	# else
-	data = {email: email}
+	data = {email: email, handle: handle}
 	# data[:style]    = pr[:style] || DEFAULT_BRAND
 	data[:password] = BCrypt::Password.create(password)
+
 	u = user = $users.add(data)
 	session[:user_id] = user[:_id] 
 	flash.message = 'ברוכים הבאים!'
@@ -148,7 +150,7 @@ post '/login' do
 		flash.message = 'ברוכים השבים!'
 		redirect '/me'
 	else
-		flash.message = 'Wrong user/password, please try again.'		
+		flash.message = 'טעות בשם משתמש או סיסמא, נסו שוב.'		
 		redirect back
 	end
 end

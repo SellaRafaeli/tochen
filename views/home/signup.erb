@@ -4,16 +4,22 @@
   fb_login_route = "https://www.facebook.com/v4.0/dialog/oauth?client_id=472876716648358&redirect_uri=#{FB_REDIRECT_URI}&state=foo"
 %>
 <h3 id=signup> הרשמה </h3>
-<form action='/signup' method='post' >
-		<label class='w200'>  אימייל שלך </label>
-		<input class='input1' value="<%=pr[:email]%>" placeholder='you@gmail.com' name='email' <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
+<form action='/signup' method='post'>
+		<label class='w200'>  אימייל </label>
+		<input class='input1 ltr' value="<%=pr[:email]%>" placeholder='you@gmail.com' name='email' <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
 
     <!-- <div><small>We won't show this to anybody.</small></div> -->
 
     <br/>
 
+    <label class='w200'>  שם משתמש </label>
+    <input class='input1 ltr' placeholder='' name='handle' <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px; margin-left: 0'/><span style='position: relative; top: 2px; font-weight: bold'>@</span>
+
+    <!-- <div><small>We won't show this to anybody.</small></div> -->
+    <br/>
+
     <label class='w200'> בחר/י סיסמא </label>
-    <input class='input1' value="<%=pr[:email]%>" placeholder='סיסמא חדשה' name='password' type=password <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
+    <input class='input1 ltr' value="<%=pr[:email]%>" placeholder='סיסמא חדשה' name='password' type=password <%="autofocus" if is_fullpage && !pr[:email]%> style='margin-right: 5px'/>
     
     <% if pr[:enable_token] %>
     <br/>
