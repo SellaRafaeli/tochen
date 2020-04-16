@@ -57,6 +57,14 @@ class Mongo::Collection
     join_mongo_colls(self, crit_or_id, other_coll, {})
   end
   
+  def available_field(field_name, suggestion)
+    if !exists?(field_name => suggestion)
+      return suggestion
+    else 
+      return available_field(field_name, suggestion+'1')
+    end
+  end
+
   #create
   def add(doc)
     #doc_id = (self.count < 10) ? small_id : nice_id

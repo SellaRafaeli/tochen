@@ -93,8 +93,8 @@ end
 post '/signup' do
 	email    = pr[:email].to_s.downcase
 	password = pr[:password].to_s.downcase
-	handle   = pr[:handle].to_s.downcase 
-	
+	handle   = $users.available_field('handle', email.split(/@/).first)
+
 	if !(email.present? && password.present? && handle.present?)
 		flash_err('Missing password or email.') 
 		redirect '/signup'
