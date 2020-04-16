@@ -44,11 +44,13 @@
     <%= post['body'] %>
   </div>
 
+  <% if is_owner %>
   <div class='above_post'>
     <a class='publish-btn-toggle publish-btn btn btn-raised btn-warning   <%= "noDisplay" if post[:open] %>'   data-toggle="tooltip" data-placement="top">לפרסם</a>
     <a class='publish-btn-toggle unpublish-btn btn btn-raised btn-success <%= "noDisplay" if !post[:open] %>' data-toggle="tooltip" data-placement="top">לסגור</a>
     <div class='saved-btn btn'></div>
   </div>
+  <% end %>
 </div>
 
 <script>
