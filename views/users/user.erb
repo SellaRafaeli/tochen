@@ -1,8 +1,14 @@
 <%
   splat  = pr['splat']
-  handle = "@#{splat[0]}"
+  handle = splat[0]
+  
   user   = $users.get(handle: handle)
+  posts  = user ? $posts.all(user_id: user[:_id], post_open: 'yes') : []
 %>
 
-<%= user.to_json %>
+<h1> <%= handle %> </h1>
+
+<%= erb :'posts/posts_list', locals: {posts: posts} %>    
+
+<%#= user.to_json %>
 

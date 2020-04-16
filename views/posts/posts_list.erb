@@ -1,0 +1,8 @@
+<div class='posts'>
+  <ul>
+  <% posts.each do |post| %>
+    <li><a href='/@<%=cu['handle']%>/<%=post[:_id]%>'><%=post['title']%></a></li>
+  <% end %>
+  </ul>
+</div>
+<!-- <p> האירועים שלי </p> -->      

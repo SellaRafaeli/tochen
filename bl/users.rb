@@ -22,11 +22,6 @@ post '/update_me' do
 	redirect '/me'
 end
 
-
-get '/@*/*' do 
-	erb :'users/user', default_layout	
-end
-
 # get '/onboarding' do
 #   erb :'onboarding/onboarding', default_layout
 # end

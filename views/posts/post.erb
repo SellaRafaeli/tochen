@@ -1,5 +1,10 @@
 <%
-  post = $posts.get(pr[:id])
+  post_id = pr[:post_id]
+  post    = $posts.get(post_id)
+  splat   = pr['splat']
+  handle  = splat[0]
+  owner   = $users.get(handle: handle)
+  is_owner= cu && owner[:_id] == cuid
 %>
 
 <style>
@@ -16,7 +21,7 @@
   white-space: pre;
 }
 
-.cu .title, .cu .body {
+.is_owner .title, .is_owner .body {
   border:1px solid whitesmoke;
 }
 
@@ -30,14 +35,13 @@
 }
 </style>
 
-
-<div id='editor' class="<%='cu' if cu %>">  
-  <h1 class='title refreshOnChange' <%= "contenteditable" if cu %>>
-    כותרת
+<div id='editor' class="<%='is_owner' if is_owner %>">  
+  <h1 class='title refreshOnChange' autofocus <%= "contenteditable" if is_owner %>>
+    <%= post['title'] %>
   </h1>
 
-  <div class='body refreshOnChange' <%= "contenteditable" if cu %>>
-    תוכן
+  <div class='body refreshOnChange' <%= "contenteditable" if is_owner %>>
+    <%= post['body'] %>
   </div>
 
   <div class='above_post'>
@@ -58,33 +62,39 @@ function getData() {
   data.body  = $body.html(); 
   return data;
 }  
-function setData(data) {
-  $title.text(data.title);
-  $body.html(data.body);
 
+function updateServer(data) {
+  return $.post('/posts/<%=post_id%>', data);
+}
+
+function setData(data, elem) {
+  updateServer(data).then(res => {
+    $title.text(data.title);
+    $body.html(data.body);  
+    $('.saved-btn').fadeIn('fast').text('נשמר').fadeOut(1500);
+    setEndOfContenteditable(elem);
+  })  
 }
   
 function onDataChange(elem) {
   var data = getData();
-  setData(data);
-
-  $('.saved-btn').fadeIn('fast').text('נשמר').fadeOut(1500);
+  setData(data,elem);
 }
-
 
 function onLoad() {
   $('.refreshOnChange').on("input", ()=> { 
     var elem = $(event.target)[0];
     clearTimeout(window.onDataChangeTimeout);
     window.onDataChangeTimeout = setTimeout(() => {
-      onDataChange();
-      setEndOfContenteditable(elem);
-    },500);
+      onDataChange(elem);      
+    },2000);
   });
 
   $('[data-toggle="tooltip"]').tooltip();
 
   $('.publish-btn-toggle').click(()=> { $('.publish-btn-toggle').toggleClass('noDisplay');});
+  $('.publish-btn').click(()=> { $.post('/posts/<%=post_id%>',{post_open: 'yes'}) });
+  $('.unpublish-btn').click(()=> { $.post('/posts/<%=post_id%>',{post_open: 'false'}) });
 }
 
 

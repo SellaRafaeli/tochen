@@ -120,6 +120,13 @@ textarea {
   width: 200px;  
   direction: ltr;
 }
+
+[contentEditable=true]:empty:not(:focus):before{
+  content:attr(data-ph);
+  color:grey;
+  font-style:italic;
+}
+
 input{
   border: 2px solid whitesmoke;
   padding: 7px;
