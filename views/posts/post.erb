@@ -43,17 +43,23 @@ function getData() {
 function setData(data) {
   $title.text(data.title);
   $body.text(data.body);
+
 }
   
-function onDataChange() {
+function onDataChange(elem) {
   var data = getData();
   console.log('data is',data);
-  //setData(data);
+  setData(data);
   $('.edited_at').text(new Date);
 }
 
 $('.refreshOnChange').on("input", ()=> { 
+  var elem = $(event.target)[0];
   clearTimeout(window.onDataChangeTimeout);
-  window.onDataChangeTimeout = setTimeout(onDataChange,500);
+  window.onDataChangeTimeout = setTimeout(() => {
+    onDataChange();
+    debugger
+    setEndOfContenteditable(elem);
+  },500);
 });
 </script>
