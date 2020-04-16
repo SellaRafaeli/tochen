@@ -8,18 +8,30 @@
   font-family: Lora;
   direction: rtl;
   text-align: right;
+  position: relative;
 }
 
-.title {
+.title .body {
   direction: rtl;
+  white-space: pre;
 }
+
 .cu .title, .cu .body {
   border:1px solid whitesmoke;
 }
+
+.above_post {
+  direction: ltr;  
+  text-align: left;
+  display: flex;
+}
+.saved-btn {
+  color: grey;
+}
 </style>
 
-<div> edited at <span class='edited_at'> </span> </div>
-<div id='editor' class="<%='cu' if cu %>">
+
+<div id='editor' class="<%='cu' if cu %>">  
   <h1 class='title refreshOnChange' <%= "contenteditable" if cu %>>
     כותרת
   </h1>
@@ -27,39 +39,63 @@
   <div class='body refreshOnChange' <%= "contenteditable" if cu %>>
     תוכן
   </div>
+
+  <div class='above_post'>
+    <a class='publish-btn-toggle publish-btn btn btn-raised btn-warning   <%= "noDisplay" if post[:open] %>'   data-toggle="tooltip" data-placement="top">לפרסם</a>
+    <a class='publish-btn-toggle unpublish-btn btn btn-raised btn-success <%= "noDisplay" if !post[:open] %>' data-toggle="tooltip" data-placement="top">לסגור</a>
+    <div class='saved-btn btn'></div>
+  </div>
 </div>
 
 <script>
 
-var $title = $('#editor .title')
-var $body  = $('#editor .body')
+var $title = $('#editor .title');
+var $body  = $('#editor .body');
 
 function getData() {
   var data = {}
   data.title = $title.text().trim();
-  data.body  = $body.text().trim(); 
+  data.body  = $body.html(); 
   return data;
 }  
 function setData(data) {
   $title.text(data.title);
-  $body.text(data.body);
+  $body.html(data.body);
 
 }
   
 function onDataChange(elem) {
   var data = getData();
-  console.log('data is',data);
   setData(data);
-  $('.edited_at').text(new Date);
+
+  $('.saved-btn').fadeIn('fast').text('נשמר').fadeOut(1500);
 }
 
-$('.refreshOnChange').on("input", ()=> { 
-  var elem = $(event.target)[0];
-  clearTimeout(window.onDataChangeTimeout);
-  window.onDataChangeTimeout = setTimeout(() => {
-    onDataChange();
-    debugger
-    setEndOfContenteditable(elem);
-  },500);
-});
+
+function onLoad() {
+  $('.refreshOnChange').on("input", ()=> { 
+    var elem = $(event.target)[0];
+    clearTimeout(window.onDataChangeTimeout);
+    window.onDataChangeTimeout = setTimeout(() => {
+      onDataChange();
+      setEndOfContenteditable(elem);
+    },500);
+  });
+
+  $('[data-toggle="tooltip"]').tooltip();
+
+  $('.publish-btn-toggle').click(()=> { $('.publish-btn-toggle').toggleClass('noDisplay');});
+}
+
+
+// $('.refreshOnChange').on("input", ()=> { 
+//   var elem = $(event.target)[0];
+//   clearTimeout(window.onDataChangeTimeout);
+//   window.onDataChangeTimeout = setTimeout(() => {
+//     onDataChange();
+//     setEndOfContenteditable(elem);
+//   },500);
+// });
+
+$(document).ready(onLoad);
 </script>

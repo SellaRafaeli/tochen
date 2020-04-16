@@ -41,6 +41,7 @@
 
 <%
   logo = '/favicon.ico'
+  is_post_page = _req.path.to_s.starts_with?('/posts/')
 %>
 
 <% if _req.path=='/z' %>
@@ -56,20 +57,30 @@
 
 
     <a class='' href='/'>ראשי</a>    
+    
     <% if cu %>
-    <a class='' href='/me'>אני (<%=cu['email']%>)</a>
+      <a class='' href='/me'>אני (<%=cu['email']%>)</a>
     <% else %>
     <!-- <a class='' href='/signup'>Sign Up</a> -->
     <% end %>
-    <a class='' href='/about'>אודות</a>
+
     
+    <a class='' href='/about'>אודות</a>
+
     <% if cu %>
       <a class='' href='/logout'>לצאת</a>
     <% else %>
       <a class='' href='/signup'>הרשמה</a>
       <a class='' href='/login'>לוגין</a>    
     <% end %>
-    <form style='display: inline-block' action='/create' method=post><button class='btn btn-raised btn-primary'>ליצור!</button></form>
+
+    <% if cu && !is_post_page %>
+    <form style='display: inline-block' action='/create' method=post><button class='btn btn-raised btn-primary'>ליצור!
+    </button></form>
+    <% end %>
+
+    <% if cu && is_post_page %>      
+    <% end %>
 
     <% if false %> 
       <a href='/me'> <%= cu[:email] %> </a>
