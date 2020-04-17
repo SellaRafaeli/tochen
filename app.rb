@@ -124,7 +124,7 @@ post '/signup' do
 	# 	end
 	
 	# else
-	data = {email: email}
+	data = {email: email, name: name}
 	# data[:style]    = pr[:style] || DEFAULT_BRAND
 	data[:password] = BCrypt::Password.create(password)
 
