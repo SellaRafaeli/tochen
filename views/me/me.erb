@@ -18,14 +18,19 @@
       <label> אימייל: <%= cu['email'] %> </label>
       <div></div>
 
-      <label> שם משתמש </label>
-      <input class='input1 ltr' placeholder='' value="<%=cu['handle']%>" name='handle' style='margin-right: 5px; margin-left: 0'/>
+      <label> השם שלך </label>
+      <input class='input1 rtl' placeholder='' value="<%=cu['name']%>" name='name' style='margin-right: 5px; margin-left: 0'/>
       
-      <br/>
+      <br/> 
 
       <label> מי את/ה? </label>
       <textarea name=desc value=""><%=cu['desc']%></textarea> 
       <br/>
+
+      <label> שם משתמש </label>
+      <input class='input1 ltr' placeholder='' value="<%=cu['handle']%>" name='handle' style='margin-right: 5px; margin-left: 0'/>
+      <br/>
+
       <button class='btn btn-raised btn-info'>עדכן!</button>
 		</form>
 

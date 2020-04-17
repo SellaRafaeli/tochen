@@ -31,7 +31,7 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 h1 {
   font-weight: 900; 
-  color: #209CEE;
+  /*color: #209CEE;*/
 }
 .container {
   padding-bottom: 90px;
@@ -121,10 +121,12 @@ textarea {
   direction: ltr;
 }
 
-[contentEditable=true]:empty:not(:focus):before{
-  content:attr(data-ph);
-  color:grey;
-  font-style:italic;
+.ltr {
+  direction: ltr;
+}
+
+.rtl {
+  direction: rtl;
 }
 
 input{

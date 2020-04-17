@@ -4,7 +4,7 @@
   splat   = pr['splat']
   handle  = splat[0]
   owner   = $users.get(handle: handle)
-  is_owner= cu && owner[:_id] == cuid
+  is_owner= owner && owner[:_id] == cuid
 %>
 
 <style>

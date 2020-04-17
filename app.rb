@@ -93,9 +93,9 @@ end
 post '/signup' do
 	email    = pr[:email].to_s.downcase
 	password = pr[:password].to_s.downcase
-	handle   = $users.available_field('handle', email.split(/@/).first)
+	name     = pr[name].to_s.downcase
 
-	if !(email.present? && password.present? && handle.present?)
+	if !(email.present? && password.present? && name.present?)
 		flash_err('Missing password or email.') 
 		redirect '/signup'
 	end
@@ -105,7 +105,7 @@ post '/signup' do
 	end
 
 	if (user = $users.get(email: email)) || (user = $users.get(handle: handle))
-		flash_err('האימייל או שם המשתמש תפוסים.')
+		flash_err('האימייל תפוס.')
 		redirect '/signup'
 	end
 
