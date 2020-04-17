@@ -33,12 +33,20 @@
 .saved-btn {
   color: grey;
 }
+
+.user_data {
+  padding: 20px;
+}
 </style>
 
 <div id='editor' class="<%='is_owner' if is_owner %>">  
   <h1 class='title refreshOnChange' autofocus <%= "contenteditable" if is_owner %>>
     <%= post['title'] %>
   </h1>
+  <div class='user_data'>
+    <%= owner['name'] %>, 
+    <%= post['created_at'] %>
+  </div>
 
   <div class='body refreshOnChange' <%= "contenteditable" if is_owner %>>
     <%= post['body'] %>
@@ -111,3 +119,4 @@ function onLoad() {
 
 $(document).ready(onLoad);
 </script>
+<script src="https://unpkg.com/turndown/dist/turndown.js"></script>

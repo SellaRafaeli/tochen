@@ -34,7 +34,7 @@ gem 'twilio-ruby'
 gem 'postmark'
 gem "sinatra-cross_origin", "~> 0.3.1"
 gem 'rack-protection'
-gem 'fcm'
+gem 'redcarpet'
 # gem 'erubis' # enables set :erb, { escape_html: true }, which escape xss 
 # gem 'mysql2'
 #gem 'base62' #allows compression of mongo ids

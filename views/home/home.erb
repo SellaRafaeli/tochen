@@ -16,12 +16,8 @@
 	<h1> תוכן. </h1>
   <p> תוכן ישראלי ממש טוב.</p>
 
-  <% if false %>
-  <a class='btn btn-info btn-raised' href='/signup'>Sign up (free)</a>
-  <a class='btn btn-info btn-raised' href='/login'>Login</a>
-  <% end %>
-  <div>
-  </div>
+  <!-- <h2> Posts </h2> -->
+  <%= erb :'posts/posts_list', locals: {posts: $posts.all(post_open: 'yes')} %>
 </div>
 
 <script>

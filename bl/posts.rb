@@ -19,6 +19,10 @@ post '/posts/:id' do
 end
 
 get '/@*/:post_id' do 
+	if !$posts.exists?(_id: pr[:post_id])
+		flash.message = 'No such post'
+		redirect '/'
+	end
 	erb :'/posts/post', default_layout
 end
 

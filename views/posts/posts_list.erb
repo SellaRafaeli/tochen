@@ -1,7 +1,9 @@
 <div class='posts'>
   <ul>
   <% posts.each do |post| %>
-    <li><a href='/@<%=cu['handle']%>/<%=post[:_id]%>'><%=post['title']%></a></li>
+    <% puts post %>
+    <% user = $users.get(post[:user_id]) || {} %>
+    <li><a href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post['title']%></a> (<%=user[:handle]%>)</li>
   <% end %>
   </ul>
 </div>
