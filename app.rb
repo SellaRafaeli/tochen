@@ -93,7 +93,7 @@ end
 post '/signup' do
 	email    = pr[:email].to_s.downcase
 	password = pr[:password].to_s.downcase
-	name     = pr[name].to_s.downcase
+	name     = pr[:name].to_s.downcase
 
 	if !(email.present? && password.present? && name.present?)
 		flash_err('Missing password or email.') 
