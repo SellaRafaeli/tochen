@@ -104,7 +104,7 @@ post '/signup' do
 		$users.delete_one({email: 'test'})
 	end
 
-	if (user = $users.get(email: email)) || (user = $users.get(handle: handle))
+	if (user = $users.get(email: email))
 		flash_err('האימייל תפוס.')
 		redirect '/signup'
 	end
