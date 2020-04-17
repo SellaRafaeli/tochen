@@ -95,6 +95,8 @@ post '/signup' do
 	password = pr[:password].to_s.downcase
 	name     = pr[:name].to_s.downcase
 
+	handle   = $users.available_field('handle', email.split(/@/).first)
+
 	if !(email.present? && password.present? && name.present?)
 		flash_err('Missing password or email.') 
 		redirect '/signup'
@@ -124,7 +126,7 @@ post '/signup' do
 	# 	end
 	
 	# else
-	data = {email: email, name: name}
+	data = {email: email, name: name, handle: handle}
 	# data[:style]    = pr[:style] || DEFAULT_BRAND
 	data[:password] = BCrypt::Password.create(password)
 
