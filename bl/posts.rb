@@ -18,9 +18,14 @@ post '/posts/:id' do
 	{post: res}
 end
 
-get '/@*/:post_id' do 
-	if !$posts.exists?(_id: pr[:post_id])
-		flash.message = 'No such post'
+get '/@*/:post_id' do
+	post = $posts.get(pr[:post_id])
+
+	err = nil
+	err = 'No such post' if !post 
+	err = 'No such post' if post && post[:post_open]!='yes' && post[:user_id]!=cuid
+	if err
+		flash_err(err) 
 		redirect '/'
 	end
 	erb :'/posts/post', default_layout

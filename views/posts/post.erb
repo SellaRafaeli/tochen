@@ -11,13 +11,13 @@
 <div id='editor' class="<%='is_owner' if is_owner %>">  
   <h1 class='title refreshOnChange' autofocus>
     <% if is_owner %>
-      <textarea onkeyup=savePost() class='editable_textarea title_textarea' autofocus zplaceholder=...><%= post['title'] %></textarea>
+      <textarea onkeyup=savePost() rows=1 class='editable_textarea title_textarea' autofocus zplaceholder=...><%= post['title'] %></textarea>
     <% else %>
       <textarea readonly           class='editable_textarea title_textarea'><%= post['title'] %></textarea>
     <% end %>
   </h1>
 
-  <div class='user_data'>
+  <div class='user_data rtl'>
     <span class='user_data_name'><%= owner['name'] %>, </span>
     <span class='user_data_name'><%= created_at %></span>
   </div>
@@ -47,10 +47,11 @@ function updateServer(data) {
 function savePost() {
   var btn  = $('.saved-btn');
   var data = {title: $title.val(), body: $body.val()}
-  btn.fadeIn('fast').text('שומר...');
-
+  
+  btn.fadeOut(0).text('');
   clearTimeout(window.savePostTimeout);
   window.savePostTimeout = setTimeout(()=>{
+    btn.fadeIn('fast').text('שומר...');
     updateServer(data).then(res => { btn.text('נשמר').fadeOut(1500);})  
   },1000);
 }
