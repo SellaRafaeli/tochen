@@ -19,15 +19,19 @@ post '/posts/:id' do
 end
 
 get '/@*/:post_id' do
-	post = $posts.get(pr[:post_id])
-
+	post_id    = pr[:post_id]
+	post       = $posts.get(post_id)
+	is_owner   = post[:user_id]==cuid
+	
 	err = nil
 	err = 'No such post' if !post 
-	err = 'No such post' if post && post[:post_open]!='yes' && post[:user_id]!=cuid
+	err = 'No such post' if post && post[:post_open]!='yes' && !is_owner
 	if err
 		flash_err(err) 
 		redirect '/'
 	end
+
+	record_view(pr[:post_id], cuid) unless is_owner
 	erb :'/posts/post', default_layout
 end
 

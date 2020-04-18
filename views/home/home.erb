@@ -1,5 +1,6 @@
 <%
 #events = $events.all.sort_by {|ev| ev[:date] }
+posts = $posts.all(post_open: 'yes').reverse
 %>
 
 <style>
@@ -14,10 +15,10 @@
 </style>
 <div class='hp'>
 	<h1> תוכן. </h1>
-  <p> תוכן ישראלי ממש טוב.</p>
+  <p> מקום לכתוב בו.</p>
 
   <!-- <h2> Posts </h2> -->
-  <%= erb :'posts/posts_list', locals: {posts: $posts.all(post_open: 'yes')} %>
+  <%= erb :'posts/posts_list', locals: {posts: posts} %>
 </div>
 
 <script>

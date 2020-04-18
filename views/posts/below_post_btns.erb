@@ -1,10 +1,21 @@
 <% 
-  post_id = post[:_id]
+  post_id   = post[:_id]
+  num_views = $views.count(post_id: post_id)
 %>
+
+<style>
+.num_views {
+  position: relative;
+    top: 17px;
+    left: 16px;
+}
+</style>
 
 <div class='above_post'>
   <a class='publish-btn-toggle publish-btn btn btn-raised btn-primary <%= "noDisplay" if post[:post_open].to_s == 'yes' %>'   data-toggle="tooltip" data-placement="top">לפרסם!</a>
   <a class='publish-btn-toggle unpublish-btn btn btn-raised btn-success <%= "noDisplay" if !(post[:post_open].to_s == 'yes') %>' data-toggle="tooltip" data-placement="top"><i class='fa fa-check'></i></a>
+
+  <span class='num_views rtl'><%=num_views%> צפיות</span>
   <div class='saved-btn btn'></div>
 </div>
 

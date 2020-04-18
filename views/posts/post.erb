@@ -68,7 +68,7 @@ function resizeTextAreas() {
 function onLoad() {
   $('[data-toggle="tooltip"]').tooltip(); // show tooltips 
 
-  resizeTextAreas();
+  setTimeout(()=>resizeTextAreas(),500);
 }
 
 $(document).ready(onLoad);
