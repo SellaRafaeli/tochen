@@ -1,14 +1,16 @@
 /*hello*/
 
 /*post*/
-
+body {
+	font-family: 'Assistant', sans-serif !important;
+}
 #editor {
   font-size: 16px;
   font-family: Lora;
   direction: rtl;
   text-align: right;
   position: relative;
-  max-width: 680px;  
+  max-width: 680px;    
   font-family: 'Assistant', sans-serif !important;
 }
 

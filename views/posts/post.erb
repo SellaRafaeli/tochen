@@ -18,8 +18,8 @@
   </h1>
 
   <div class='user_data rtl'>
-    <span class='user_data_name'><%= owner['name'] %>, </span>
-    <span class='user_data_name'><%= created_at %></span>
+    <span class='user_data_name'><a href='<%=$root_url%>/@<%=owner['handle']%>'><%= owner['name'] %></a>, </span>
+    <span class='user_data_name'><a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %></a></span>
   </div>
 
   <% if is_owner %>

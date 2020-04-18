@@ -1,6 +1,6 @@
 $prod       = settings.production? #RACK_ENV==production?
-$prod_url   = 'https://usemindy.com'
-$root_url   = $prod ? $prod_url : 'http://localhost:6060'
+$prod_url   = 'https://tochen.herokuapp.com'
+$root_url   = $prod ? $prod_url : 'http://localhost:2021'
 
 ONE_YEAR_IN_SECONDS = 31556952
 SESSION_SECRET = ENV['SESSION_SECRET'] || '&a!*^n31994@'
