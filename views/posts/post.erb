@@ -13,7 +13,7 @@
     <% if is_owner %>
       <textarea onkeyup=savePost() rows=1 class='editable_textarea title_textarea' autofocus zplaceholder=...><%= post['title'] %></textarea>
     <% else %>
-      <textarea readonly           class='editable_textarea title_textarea'><%= post['title'] %></textarea>
+      <textarea readonly           rows=1 class='editable_textarea title_textarea'><%= post['title'] %></textarea>
     <% end %>
   </h1>
 
