@@ -8,6 +8,12 @@
   direction: rtl;
   text-align: right;
   position: relative;
+  max-width: 680px;  
+  font-family: 'Assistant', sans-serif !important;
+}
+
+h1 { 
+	font-family: 'Assistant', sans-serif !important;
 }
 
 .title .body {
@@ -30,12 +36,19 @@
 
 .user_data {
   padding: 20px 0 20px 0;
+  font-family: 'Assistant', sans-serif !important;
 }
 
 .editable_textarea {
   width: 100%;
   height: auto;
   border: none;
+  /*text-align: justify;*/
+}
+
+.body_textarea {
+	font-size: 18px;
+	line-height: 35px;
 }
 
 .editable_textarea[readonly] {

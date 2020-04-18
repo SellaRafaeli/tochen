@@ -26,9 +26,9 @@
   <% end %>
   <div class='body refreshOnChange'>
     <% if is_owner %>
-      <textarea onkeyup=savePost() class='editable_textarea title_textarea' placeholder=...><%= post['body'] %></textarea>
+      <textarea onkeyup=savePost() class='editable_textarea body_textarea' placeholder=...><%= post['body'] %></textarea>
     <% else %>
-      <textarea readonly           class='editable_textarea title_textarea'><%= post['body'] %></textarea>
+      <textarea readonly           class='editable_textarea body_textarea'><%= post['body'] %></textarea>
     <% end %>      
   </div>
 

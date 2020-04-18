@@ -68,7 +68,7 @@ end
 
 def nice_id
   #return rand(Time.now.to_i*100).to_s(36)
-  res = SecureRandom.urlsafe_base64(7,false)[0..3]
+  res = SecureRandom.urlsafe_base64(7,false)[0..2]
   res = nice_id if $posts.get(res)      
   res
 end
