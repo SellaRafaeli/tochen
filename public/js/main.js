@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
 	$.material.init(); //init material design
-	console.log('done on-document-ready')
+	console.log('main.js: done on-document-ready')
 }); 

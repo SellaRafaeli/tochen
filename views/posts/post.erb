@@ -5,118 +5,70 @@
   handle  = splat[0]
   owner   = $users.get(handle: handle)
   is_owner= owner && owner[:_id] == cuid
+  created_at = nice_date(post['created_at']) rescue '' 
 %>
 
-<style>
-#editor {
-  font-size: 16px;
-  font-family: Lora;
-  direction: rtl;
-  text-align: right;
-  position: relative;
-}
-
-.title .body {
-  direction: rtl;
-  white-space: pre;
-}
-
-.is_owner .title, .is_owner .body {
-  border:1px solid whitesmoke;
-}
-
-.above_post {
-  direction: ltr;  
-  text-align: left;
-  display: flex;
-}
-.saved-btn {
-  color: grey;
-}
-
-.user_data {
-  padding: 20px;
-}
-</style>
-
 <div id='editor' class="<%='is_owner' if is_owner %>">  
-  <h1 class='title refreshOnChange' autofocus <%= "contenteditable" if is_owner %>>
-    <%= post['title'] %>
+  <h1 class='title refreshOnChange' autofocus>
+    <% if is_owner %>
+      <textarea onkeyup=savePost() class='editable_textarea title_textarea' autofocus zplaceholder=...><%= post['title'] %></textarea>
+    <% else %>
+      <textarea readonly           class='editable_textarea title_textarea'><%= post['title'] %></textarea>
+    <% end %>
   </h1>
-  <div class='user_data'>
-    <%= owner['name'] %>, 
-    <%= post['created_at'] %>
-  </div>
 
-  <div class='body refreshOnChange' <%= "contenteditable" if is_owner %>>
-    <%= post['body'] %>
+  <div class='user_data'>
+    <span class='user_data_name'><%= owner['name'] %>, </span>
+    <span class='user_data_name'><%= created_at %></span>
   </div>
 
   <% if is_owner %>
-  <div class='above_post'>
-    <a class='publish-btn-toggle publish-btn btn btn-raised btn-warning   <%= "noDisplay" if post[:open] %>'   data-toggle="tooltip" data-placement="top">לפרסם</a>
-    <a class='publish-btn-toggle unpublish-btn btn btn-raised btn-success <%= "noDisplay" if !post[:open] %>' data-toggle="tooltip" data-placement="top">לסגור</a>
-    <div class='saved-btn btn'></div>
-  </div>
   <% end %>
+  <div class='body refreshOnChange'>
+    <% if is_owner %>
+      <textarea onkeyup=savePost() class='editable_textarea title_textarea' placeholder=...><%= post['body'] %></textarea>
+    <% else %>
+      <textarea readonly           class='editable_textarea title_textarea'><%= post['body'] %></textarea>
+    <% end %>      
+  </div>
+
+  <%= erb :'posts/below_post_btns', locals: {post: post} if is_owner %>
 </div>
 
 <script>
 
-var $title = $('#editor .title');
-var $body  = $('#editor .body');
-
-function getData() {
-  var data = {}
-  data.title = $title.text().trim();
-  data.body  = $body.html(); 
-  return data;
-}  
+var $title = $('#editor .title textarea');
+var $body  = $('#editor .body textarea');
 
 function updateServer(data) {
   return $.post('/posts/<%=post_id%>', data);
 }
 
-function setData(data, elem) {
-  updateServer(data).then(res => {
-    $title.text(data.title);
-    $body.html(data.body);  
-    $('.saved-btn').fadeIn('fast').text('נשמר').fadeOut(1500);
-    setEndOfContenteditable(elem);
-  })  
+function savePost() {
+  var btn  = $('.saved-btn');
+  var data = {title: $title.val(), body: $body.val()}
+  btn.fadeIn('fast').text('שומר...');
+
+  clearTimeout(window.savePostTimeout);
+  window.savePostTimeout = setTimeout(()=>{
+    updateServer(data).then(res => { btn.text('נשמר').fadeOut(1500);})  
+  },1000);
 }
   
-function onDataChange(elem) {
-  var data = getData();
-  setData(data,elem);
+function resizeTextAreas() {
+  $('textarea').each(function () {
+    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+  }).on('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
 }
 
 function onLoad() {
-  $('.refreshOnChange').on("input", ()=> { 
-    var elem = $(event.target)[0];
-    clearTimeout(window.onDataChangeTimeout);
-    window.onDataChangeTimeout = setTimeout(() => {
-      onDataChange(elem);      
-    },2000);
-  });
+  $('[data-toggle="tooltip"]').tooltip(); // show tooltips 
 
-  $('[data-toggle="tooltip"]').tooltip();
-
-  $('.publish-btn-toggle').click(()=> { $('.publish-btn-toggle').toggleClass('noDisplay');});
-  $('.publish-btn').click(()=> { $.post('/posts/<%=post_id%>',{post_open: 'yes'}) });
-  $('.unpublish-btn').click(()=> { $.post('/posts/<%=post_id%>',{post_open: 'false'}) });
+  resizeTextAreas();
 }
-
-
-// $('.refreshOnChange').on("input", ()=> { 
-//   var elem = $(event.target)[0];
-//   clearTimeout(window.onDataChangeTimeout);
-//   window.onDataChangeTimeout = setTimeout(() => {
-//     onDataChange();
-//     setEndOfContenteditable(elem);
-//   },500);
-// });
 
 $(document).ready(onLoad);
 </script>
-<script src="https://unpkg.com/turndown/dist/turndown.js"></script>

@@ -75,6 +75,12 @@ end
 
 ## Time 
 
+def nice_date(time, opts = {})
+  #time.strftime("%B %e") #"Jul 9, 12:55 PM"
+  #time.strftime("%A, %b #{time.day.ordinalize}")
+  time.strftime("%e/%-m/%Y")
+end
+
 def nice_datetime(time, opts = {})
   time.strftime("%b %e, %l:%M %p") #"Jul 9, 12:55 PM"
 end
