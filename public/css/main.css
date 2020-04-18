@@ -51,6 +51,10 @@ h1 {
 	line-height: 35px;
 }
 
+.title_textarea {
+	font-weight: 500;
+}
+
 .editable_textarea[readonly] {
 	cursor: auto;
 }
