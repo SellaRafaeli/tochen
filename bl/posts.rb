@@ -1,5 +1,9 @@
 $posts = $mongo.collection('posts');
 
+def get_posts(opts = {})
+	$posts.all(opts, sort: [{created_at: -1}]).reverse
+end
+
 post '/create' do 
 	require_user
 	res = $posts.add({user_id: cuid})	

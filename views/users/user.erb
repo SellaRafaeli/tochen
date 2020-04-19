@@ -3,7 +3,7 @@
   handle = splat[0]
   
   user   = $users.get(handle: handle)
-  posts  = user ? $posts.all(user_id: user[:_id], post_open: 'yes').reverse : []
+  posts  = user ? get_posts(user_id: user[:_id], post_open: 'yes') : []
 %>
 
 <h1> <%= handle %> </h1>

@@ -8,7 +8,7 @@
   #   err = 'Phone number is invalid.'
   # end
   # events = $events.all(user_id: cuid)
-  posts = $posts.all(user_id: cuid, title: {'$exists': true}).reverse
+  posts = get_posts(user_id: cuid, title: {'$exists': true})
 %>
 
 <h1> אני </h1>

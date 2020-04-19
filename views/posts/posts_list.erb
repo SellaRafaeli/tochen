@@ -1,8 +1,19 @@
+<style>
+.posts_list {
+  text-align: justify;
+}
+</style>
 <div class='posts'>
   <ul>
   <% posts.each do |post| %>
     <% user = $users.get(post[:user_id]) || {} %>
-    <li><a href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post['title']%></a> (<%=user[:handle]%>)</li>
+    <li>
+      <a href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post['title']%></a> 
+      <%= nice_date(post['created_at']) %> 
+      <% if locals[:show_handle] %> 
+        (<%=user[:handle]%>)  
+      <% end %> 
+    </li>
   <% end %>
   </ul>
 </div>

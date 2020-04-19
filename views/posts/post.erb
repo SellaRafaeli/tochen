@@ -1,4 +1,4 @@
-<%
+ <%
   post_id = pr[:post_id]
   post    = $posts.get(post_id)
   splat   = pr['splat']
@@ -7,8 +7,9 @@
   is_owner= owner && owner[:_id] == cuid
   created_at = nice_date(post['created_at']) rescue '' 
 
-  post[:ps] = post[:ps].to_a
-  post[:ps].push({type: 'text', text: ''}) if post[:ps].size == 0
+  ps = post[:ps].to_a
+  ps.push({type: 'text', text: ''}) if ps.size == 0
+
 %>
 
 <style>
@@ -57,7 +58,7 @@ textarea {
       <div class='single_p <%=p[:type]%>'>
         <% if p[:type].to_s == 'text' && (idx == 0 || p[:text].to_s.strip.present?) %>      
           <% if is_owner %>
-            <textarea onkeyup=savePost() class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if idx == 0 %>><%= p[:text] %></textarea>
+            <textarea onkeyup=savePost() class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if ps.size == 1 && idx == 0 %>><%= p[:text] %></textarea>
           <% else %>
             <textarea readonly           class='editable_textarea body_textarea'><%= p[:text] %></textarea>
           <% end %>      
