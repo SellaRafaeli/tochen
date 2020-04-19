@@ -8,6 +8,7 @@
   created_at = nice_date(post['created_at']) rescue '' 
 
   post[:ps] = post[:ps].to_a
+  post[:ps].push({type: 'text', text: ''}) if post[:ps].size == 0
 %>
 
 <style>
@@ -28,7 +29,13 @@ textarea {
 }
 
 </style>
-<%#= post.to_json %>
+
+<% if pr[:json] %>
+<pre>
+  <%= post.to_json %>
+</pre>
+<% end %>
+
 <div id='editor' class="<%='is_owner' if is_owner %>">  
   <h1 class='title refreshOnChange' autofocus>
     <% if is_owner %>
@@ -47,7 +54,7 @@ textarea {
     <% post[:ps].to_a.each_with_index do |p, idx| %>
   
       <div class='single_p <%=p[:type]%>'>
-        <% if p[:type].to_s == 'text' && p[:text].to_s.strip.present? %>      
+        <% if p[:type].to_s == 'text' && (idx == 0 || p[:text].to_s.strip.present?) %>      
           <% if is_owner %>
             <textarea onkeyup=savePost() class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if idx == 0 %>><%= p[:text] %></textarea>
           <% else %>
