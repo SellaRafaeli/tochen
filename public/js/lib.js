@@ -47,7 +47,7 @@ window.gulp = function getUrlParameter(sParam) {
     }
 };
 
-console.log('defining onEnter');
+//console.log('defining onEnter');
 function onInputEnter(el, cb) {
   $(el).keydown(e => {
     if ($(el).val() && (event.keyCode == 13)) {

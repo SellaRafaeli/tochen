@@ -6,8 +6,29 @@
   owner   = $users.get(handle: handle)
   is_owner= owner && owner[:_id] == cuid
   created_at = nice_date(post['created_at']) rescue '' 
+
+  post[:ps] = post[:ps].to_a
 %>
 
+<style>
+textarea { 
+  border:1px solid green;
+}
+.single_p {
+  /*border:1px solid blue;*/
+  min-height: 20px;
+  /*background-color: red;*/
+  display: block;
+}
+.single_p.img {
+  text-align: center;
+}
+.single_p img {
+  max-height:400px;
+}
+
+</style>
+<%#= post.to_json %>
 <div id='editor' class="<%='is_owner' if is_owner %>">  
   <h1 class='title refreshOnChange' autofocus>
     <% if is_owner %>
@@ -22,31 +43,55 @@
     <span class='user_data_name'><a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %></a></span>
   </div>
 
-  <div class='body refreshOnChange'>
-    <% if is_owner %>
-      <textarea onkeyup=savePost() class='editable_textarea body_textarea' placeholder='הסיפור שלך'><%= post['body'] %></textarea>
-      <button> להוסיף תמונה </button>
-    <% else %>
-      <textarea readonly           class='editable_textarea body_textarea'><%= post['body'] %></textarea>
-    <% end %>      
+  <div class='postBody refreshOnChange'>
+    <% post[:ps].to_a.each_with_index do |p, idx| %>
+  
+      <div class='single_p <%=p[:type]%>'>
+        <% if p[:type].to_s == 'text' && p[:text].to_s.strip.present? %>      
+          <% if is_owner %>
+            <textarea onkeyup=savePost() class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if idx == 0 %>><%= p[:text] %></textarea>
+          <% else %>
+            <textarea readonly           class='editable_textarea body_textarea'><%= p[:text] %></textarea>
+          <% end %>      
+        
+        <% elsif p[:type].to_s == 'img' %>
+          <img src='<%=p[:src]%>' />
+        <% end %>
+      </div>
+    
+    <% end %>
   </div>
 
+  <input type=file id=img_uploader style='display: none' />
   <%= erb :'posts/below_post_btns', locals: {post: post} if is_owner %>
 </div>
 
 <script>
 
 var $title = $('#editor .title textarea');
-var $body  = $('#editor .body textarea');
+var $body  = $('#editor .postBody textarea');
 
 function updateServer(data) {
-  return $.post('/posts/<%=post_id%>', data);
+  return $.ajax('/posts/<%=post_id%>', {data: JSON.stringify(data), contentType: 'application/json', type: 'POST'});
 }
 
-function savePost() {
+function getData() {
+  var ps = [];
+  $('.single_p').each((idx,p) => {
+    p = $(p);
+    if (p.hasClass('text')) {
+      ps.push({type: 'text', text: p.find('textarea').val()})
+    } else if (p.hasClass('img')) {
+      ps.push({type: 'img', src: p.find('img').attr('src')})
+    }
+  });
+  var data = {title: $title.val(), ps: ps};
+  return data;
+}
+
+function savePost() {  
+  var data = getData();
   var btn  = $('.saved-btn');
-  var data = {title: $title.val(), body: $body.val()}
-  
   btn.fadeOut(0).text('');
   clearTimeout(window.savePostTimeout);
   window.savePostTimeout = setTimeout(()=>{
@@ -59,15 +104,67 @@ function resizeTextAreas() {
   $('textarea').each(function () {
     this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
   }).on('input', function () {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
+    this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';
   });
+}
+
+function addTextP() {
+  var el = $('.single_p.text').first().clone();
+  el.find('textarea').val('').attr('placeholder','');
+  $('.postBody').append(el);
+}
+
+function addImgP(res) {
+  var link = JSON.parse(res).data.link;
+  //link = 'https://image.shutterstock.com/image-illustration/cow-isolated-on-white-background-260nw-1497503726.jpg';
+  //var el = $('.single_p.img').first().clone();
+  var el = $('<div class="single_p img"><img /></div>');
+  el.find('img').attr('src',link);
+  $('.postBody').append(el);
+  
+  addTextP();
+}
+
+function removeImg(el) {
+  if (confirm("למחוק את התמונה?")) {
+    $(event.target).closest('.single_p').remove();
+    savePost();
+  }
+}
+
+function uploadImg(file) {
+  console.log("Uploading file to Imgur..");
+  var settings = {
+    async: false, crossDomain: true, processData: false, contentType: false,
+    type: 'POST', url: 'https://api.imgur.com/3/image',
+    headers: {Authorization: 'Client-ID 3fe190ba92e9bed', Accept: 'application/json' },
+    mimeType: 'multipart/form-data'
+  };
+
+  var formData = new FormData();
+  formData.append("image", file);
+  settings.data = formData;
+
+  $.ajax(settings).done(addImgP) // link at response.data.link
+}
+
+function attachImgUploader() {
+  $('#img_uploader').on("change", function() {
+    var file = $(this).get(0).files[0];
+    if (file) { uploadImg(file) }
+  });
+}
+
+function attachImgDeleters() {
+  $('body').on('click', '.single_p img', removeImg); 
 }
 
 function onLoad() {
   $('[data-toggle="tooltip"]').tooltip(); // show tooltips 
 
-  setTimeout(()=>resizeTextAreas(),500);
+  setTimeout(()=>resizeTextAreas(),100);
+  attachImgUploader();
+  attachImgDeleters();
 }
 
 $(document).ready(onLoad);
