@@ -11,7 +11,7 @@
 <div id='editor' class="<%='is_owner' if is_owner %>">  
   <h1 class='title refreshOnChange' autofocus>
     <% if is_owner %>
-      <textarea onkeyup=savePost() rows=1 class='editable_textarea title_textarea' autofocus zplaceholder=...><%= post['title'] %></textarea>
+      <textarea onkeyup=savePost() rows=1 class='editable_textarea title_textarea' autofocus placeholder='כותרת'><%= post['title'] %></textarea>
     <% else %>
       <textarea readonly           rows=1 class='editable_textarea title_textarea'><%= post['title'] %></textarea>
     <% end %>
@@ -22,11 +22,10 @@
     <span class='user_data_name'><a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %></a></span>
   </div>
 
-  <% if is_owner %>
-  <% end %>
   <div class='body refreshOnChange'>
     <% if is_owner %>
-      <textarea onkeyup=savePost() class='editable_textarea body_textarea' placeholder=...><%= post['body'] %></textarea>
+      <textarea onkeyup=savePost() class='editable_textarea body_textarea' placeholder='הסיפור שלך'><%= post['body'] %></textarea>
+      <button> להוסיף תמונה </button>
     <% else %>
       <textarea readonly           class='editable_textarea body_textarea'><%= post['body'] %></textarea>
     <% end %>      

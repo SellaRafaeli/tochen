@@ -1,4 +1,13 @@
-Mindy - The Mindfulness Helper
+Tochen:
+
+Post: 
+{
+	title: '...'
+	body: [
+		{type: 'text', content: 'hello'},
+		{type: 'image', src: 'http://...'},
+	]
+}
 
 * Next steps
 	* make share button 
