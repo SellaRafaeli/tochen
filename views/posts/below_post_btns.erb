@@ -18,7 +18,7 @@
   <a class='publish-btn-toggle unpublish-btn btn btn-raised btn-success <%= "noDisplay" if !(post[:post_open].to_s == 'yes') %>' data-toggle="tooltip" data-placement="top"><i class='fa fa-check'></i></a>
   
   <span style='padding-left:20px'><button class='btn btn-raised' onclick=$("#img_uploader").click()> <i class='fa fa-picture-o'></i></button></span>
-  <% if num_views == 0 %>
+  <% if num_views >= 0 %>
   <span class='num_views rtl'><%=num_views%> צפיות</span>
   <% end %>
   <div class='saved-btn btn'></div>
