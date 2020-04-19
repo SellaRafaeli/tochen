@@ -21,5 +21,5 @@ def escape_html(html, opts = {})
 end
 
 def html_title
-  $prod ? $app_name : "#{$app_name}-dev"
+  $prod ? 'תוכן' : "#{'תוכן'}-dev"
 end
