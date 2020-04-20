@@ -77,11 +77,12 @@
     
     <% if cu %>
     <a class='' href='/me'><i class='fa fa-gear'></i></a>
+    <a class='' href='/@<%=cu['handle']%>'><%=cu['handle']%>@</a>
     <% else %>
     
     <!-- <a class='' href='/signup'>Sign Up</a> -->
     <% end %>
-    <a class='' href='/@<%=cu['handle']%>'><%=cu['handle']%>@</a>
+    
 
     <% if is_main_page %>
     <a class='' href='/about'>אודות</a>
