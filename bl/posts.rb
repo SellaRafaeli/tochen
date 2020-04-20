@@ -31,7 +31,7 @@ end
 
 get '/@*/:post_id' do
 	post_id    = pr[:post_id]
-	post       = $posts.get(post_id)
+	post       = $posts.get(post_id) || {}
 	is_owner   = post[:user_id]==cuid
 	
 	err = nil

@@ -42,7 +42,7 @@
       
       <input type=file id=img_uploader style='display: none' />
       <label class='pic_label' onclick=$("#img_uploader").click()> לחץ לעדכן תמונה </label>
-      <input name=img_url id=img_url style='display: none' />
+      <input name=img_url id=img_url style='display: none' value="<%=cu[:img_url]%>"/>
       <img class=user_img src="<%=cu[:img_url]%>" />
       <br/>
       <button class='btn btn-raised btn-info'>עדכן!</button>

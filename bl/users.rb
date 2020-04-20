@@ -10,6 +10,7 @@ post '/update_me' do
 	redirect_unless_user
 
 	data = pr
+	data[:handle].gsub!(/[^0-9A-Za-z]/, '')
 
 	if (user = $users.get(handle: data[:handle])) && (user[:_id]!=cuid)
 		flash_err 'שם משתמש תפוס.'

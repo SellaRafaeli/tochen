@@ -28,7 +28,7 @@
     %>
     <% user = $users.get(post[:user_id]) || {} %>
     <li class='single_post_box'>
-      <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post['title']%></a> 
+      <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=escape_html post['title']%></a> 
       
       <div>
         <%= erb :'posts/post_metadata', locals: {owner: user, post: post} %>  
