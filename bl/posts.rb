@@ -1,7 +1,14 @@
 $posts = $mongo.collection('posts');
 
 def get_posts(opts = {})
-	$posts.all(opts, sort: [{created_at: -1}]).reverse
+	$posts.all(opts, sort: [{created_at: -1}])
+end
+
+def get_post_mins(post)
+	total_words = 0; 
+  post[:ps].to_a.each {|p| total_words+=p[:text].to_s.size if p[:type] == 'text' }
+  num_mins    = (total_words / 300.0).round
+  num_mins    = 2 if num_mins < 2
 end
 
 post '/create' do 

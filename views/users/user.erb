@@ -5,9 +5,16 @@
   user   = $users.get(handle: handle)
   posts  = user ? get_posts(user_id: user[:_id], post_open: 'yes') : []
 %>
-
+<style>
+.user_desc {
+  font-size: 22px;
+  margin: 10px auto;
+}
+</style>
 <h1> <%= handle %> </h1>
-
+<div class='user_desc'>
+  <%= user[:desc] %>
+</div>
 <%= erb :'posts/posts_list', locals: {posts: posts} %>    
 
 <%#= user.to_json %>

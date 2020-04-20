@@ -1,0 +1,13 @@
+<%
+  num_mins = get_post_mins(post)
+  created_at = nice_date(post['created_at']) rescue ''  
+%>
+<div class='user_data rtl'>
+    <span class='user_data_img'><a href='<%=$root_url%>/@<%=owner['handle']%>'><img class=user_img src="<%=owner[:img_url]%>"></a></span>
+
+    <span class='user_data_data'>
+      <a href='<%=$root_url%>/@<%=owner['handle']%>'><%= owner['name'] %></a>
+      <br/>
+      <a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %> · <span>כ-<%=num_mins %> דק׳ קריאה</span></a>
+    </span>
+</div>

@@ -1,18 +1,43 @@
 <style>
 .posts_list {
-  text-align: justify;
+  margin-top: 20px;
 }
+.single_post_box {
+  background-color: #f6f5f5;
+  padding: 10px;
+  position: relative;
+  left: 10px;
+  margin-bottom: 10px;
+  list-style: none;
+}
+.posts_list li span {
+  flex: 1;
+}
+.single_post_link {
+  font-size: 18px;
+  color: black;
+}
+
 </style>
-<div class='posts'>
+<div class='posts_list'>
   <ul>
-  <% posts.each do |post| %>
+  <% posts.each do |post| %>    
+    <% next unless post['title'].present? %>
+    <% 
+      num_mins = get_post_mins(post)      
+    %>
     <% user = $users.get(post[:user_id]) || {} %>
-    <li>
-      <a href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post['title']%></a> 
-      <%= nice_date(post['created_at']) %> 
-      <% if locals[:show_handle] %> 
-        (<%=user[:handle]%>)  
-      <% end %> 
+    <li class='single_post_box'>
+      <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post['title']%></a> 
+      
+      <div>
+        <%= erb :'posts/post_metadata', locals: {owner: user, post: post} %>  
+      </div>
+      
+      </span>
+
+      <!-- <span class=''><%= nice_date(post['created_at']) %></span>
+      <span class=''>כ-<%= num_mins %> דק׳ קריאה</span> -->
     </li>
   <% end %>
   </ul>

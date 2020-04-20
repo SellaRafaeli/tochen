@@ -36,11 +36,6 @@ h1 {
   color: grey;
 }
 
-.user_data {
-  padding: 20px 0 20px 0;
-  font-family: 'Assistant', sans-serif !important;
-}
-
 .editable_textarea {
   width: 100%;
   height: auto;

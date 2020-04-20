@@ -10,7 +10,15 @@
   # events = $events.all(user_id: cuid)
   posts = get_posts(user_id: cuid, title: {'$exists': true})
 %>
-
+<style>
+.pic_label {
+  font-weight: bold; 
+  cursor: pointer;
+}
+.pic_label:hover {
+  background-color: whitesmoke;
+}
+</style>
 <h1> אני </h1>
 
 <div>
@@ -28,12 +36,42 @@
       <br/>
 
       <label> שם משתמש </label>
-      <input class='input1 ltr' placeholder='' value="<%=cu['handle']%>" name='handle' style='margin-right: 5px; margin-left: 0'/>
+      <input class='input1 ltr' placeholder='' value="<%=cu['handle']%>" name='handle' style='margin-right: 0px; margin-left: 0'/>
       <br/>
 
+      
+      <input type=file id=img_uploader style='display: none' />
+      <label class='pic_label' onclick=$("#img_uploader").click()> לחץ לעדכן תמונה </label>
+      <input name=img_url id=img_url style='display: none' />
+      <img class=user_img src="<%=cu[:img_url]%>" />
+      <br/>
       <button class='btn btn-raised btn-info'>עדכן!</button>
 		</form>
 
-    <%= erb :'posts/posts_list', locals: {posts: posts} %>    
+    <%#= erb :'posts/posts_list', locals: {posts: posts} %>    
     </div>
 </div>
+
+<script>
+
+function updateImgURL(res) {
+  console.log(res);
+  window.res = res;
+  var link = JSON.parse(res).data.link;
+  $("#img_url").val(link);
+  $(".user_img").attr('src',link);
+}
+
+function attachImgUploader() {
+  $('#img_uploader').on("change", function() {
+    var file = $(this).get(0).files[0];
+    if (file) { uploadImg(file, updateImgURL) }
+  });  
+}
+
+function onLoad() {
+  attachImgUploader();
+}
+
+$(document).ready(onLoad);
+</script>

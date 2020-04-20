@@ -5,11 +5,8 @@
   handle  = splat[0]
   owner   = $users.get(handle: handle)
   is_owner= owner && owner[:_id] == cuid
-  created_at = nice_date(post['created_at']) rescue '' 
-
   ps = post[:ps].to_a
   ps.push({type: 'text', text: ''}) if ps.size == 0
-
 %>
 
 <style>
@@ -30,8 +27,9 @@ textarea {
   max-height:400px;
 }
 textarea {
-  /*border:2px solid blue !important;*/
+/*  border:2px solid blue !important;*/
 }
+
 </style>
 
 <% if pr[:json] %>
@@ -49,13 +47,10 @@ textarea {
     <% end %>
   </h1>
 
-  <div class='user_data rtl'>
-    <span class='user_data_name'><a href='<%=$root_url%>/@<%=owner['handle']%>'><%= owner['name'] %></a>, </span>
-    <span class='user_data_name'><a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %></a></span>
-  </div>
+  <%= erb :'posts/post_metadata', locals: {owner: owner, post: post} %>  
 
   <div class='postBody refreshOnChange'>
-    <% post[:ps].to_a.each_with_index do |p, idx| %>
+    <% ps.to_a.each_with_index do |p, idx| %>
   
       <div class='single_p <%=p[:type]%>'>
         <% if p[:type].to_s == 'text' && (idx == 0 || p[:text].to_s.strip.present?) %>      
@@ -115,7 +110,13 @@ function resizeTextAreas() {
   $('textarea').each(function () {
     this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
   }).on('input', function () {
-    this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';
+    clearTimeout(window.resizeTextAreasTimeout);
+    var scrollY = window.scrollY;
+    var el = this; 
+    window.resizeTextAreasTimeout = setTimeout(()=>{
+      el.style.height = 'auto'; el.style.height = (el.scrollHeight) + 'px';  
+      window.scrollTo(0,scrollY);
+    },100)
   });
 }
 
@@ -143,31 +144,15 @@ function removeImg(el) {
   }
 }
 
-function uploadImg(file) {
-  console.log("Uploading file to Imgur..");
-  var settings = {
-    async: false, crossDomain: true, processData: false, contentType: false,
-    type: 'POST', url: 'https://api.imgur.com/3/image',
-    headers: {Authorization: 'Client-ID 3fe190ba92e9bed', Accept: 'application/json' },
-    mimeType: 'multipart/form-data'
-  };
-
-  var formData = new FormData();
-  formData.append("image", file);
-  settings.data = formData;
-
-  $.ajax(settings).done(addImgP) // link at response.data.link
+function attachImgDeleters() {
+  $('body').on('click', '.single_p img', removeImg); 
 }
 
 function attachImgUploader() {
   $('#img_uploader').on("change", function() {
     var file = $(this).get(0).files[0];
-    if (file) { uploadImg(file) }
+    if (file) { uploadImg(file, addImgP) }
   });
-}
-
-function attachImgDeleters() {
-  $('body').on('click', '.single_p img', removeImg); 
 }
 
 function onLoad() {
