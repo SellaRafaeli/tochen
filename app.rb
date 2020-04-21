@@ -161,7 +161,7 @@ post '/login' do
 		redirect '/me'
 	else
 		flash.message = 'טעות בשם משתמש או סיסמא, נסו שוב.'		
-		redirect back
+		redirect '/me'
 	end
 end
 

@@ -10,6 +10,11 @@
   margin-bottom: 10px;
   list-style: none;
 }
+.single_post_box:hover {
+  text-decoration: underline;
+  /*border:1px solid lightgrey;*/
+  cursor: pointer;
+}
 .posts_list li span {
   flex: 1;
 }
@@ -27,7 +32,8 @@
       num_mins = get_post_mins(post)      
     %>
     <% user = $users.get(post[:user_id]) || {} %>
-    <li class='single_post_box'>
+    <li class='single_post_box' onclick="document.location.href = $(this).find('a').attr('href')">
+      
       <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=escape_html post['title']%></a> 
       
       <div>
@@ -35,7 +41,7 @@
       </div>
       
       </span>
-
+    
       <!-- <span class=''><%= nice_date(post['created_at']) %></span>
       <span class=''>כ-<%= num_mins %> דק׳ קריאה</span> -->
     </li>
