@@ -134,7 +134,7 @@ post '/signup' do
 	# 	end
 	
 	# else
-	data = {email: email, name: name, handle: handle}
+	data = {email: email, name: name, handle: handle, img_url: '/img/profile.png'}
 	# data[:style]    = pr[:style] || DEFAULT_BRAND
 	data[:password] = BCrypt::Password.create(password)
 

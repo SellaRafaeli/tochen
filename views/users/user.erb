@@ -3,7 +3,17 @@
   handle = splat[0]
   
   user   = $users.get(handle: handle)
-  posts  = user ? get_posts(user_id: user[:_id], post_open: 'yes') : []
+  if user 
+    is_owner = (user[:_id] == cuid)
+    if is_owner
+      posts = get_posts(user_id: user[:_id])
+    else 
+      posts = get_posts(user_id: user[:_id], post_open: 'yes')
+    end
+  else 
+    posts = []
+  end
+  
 %>
 <style>
 .user_desc {
@@ -15,7 +25,7 @@
 <div class='user_desc'>
   <%= user[:desc] %>
 </div>
-<%= erb :'posts/posts_list', locals: {posts: posts} %>    
+<%= erb :'posts/posts_list', locals: {posts: posts, is_owner: is_owner} %>    
 
 <%#= user.to_json %>
 

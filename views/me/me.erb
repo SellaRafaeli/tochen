@@ -8,7 +8,7 @@
   #   err = 'Phone number is invalid.'
   # end
   # events = $events.all(user_id: cuid)
-  posts = get_posts(user_id: cuid, title: {'$exists': true})
+  # posts = get_posts(user_id: cuid, title: {'$exists': true})
 %>
 <style>
 .pic_label {
@@ -48,7 +48,6 @@
       <button class='btn btn-raised btn-info'>עדכן!</button>
 		</form>
 
-    <%#= erb :'posts/posts_list', locals: {posts: posts} %>    
     </div>
 </div>
 

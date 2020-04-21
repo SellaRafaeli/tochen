@@ -47,7 +47,7 @@ textarea {
     <% end %>
   </h1>
 
-  <%= erb :'posts/post_metadata', locals: {owner: owner, post: post} %>  
+  <%= erb :'posts/post_metadata', locals: {is_owner: is_owner, owner: owner, post: post} %>  
 
   <div class='postBody refreshOnChange'>
     <% ps.to_a.each_with_index do |p, idx| %>

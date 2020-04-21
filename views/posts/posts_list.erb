@@ -1,3 +1,6 @@
+<%
+  is_owner = locals[:is_owner] ||= false
+%>
 <style>
 .posts_list {
   margin-top: 20px;
@@ -22,20 +25,35 @@
   font-size: 18px;
   color: black;
 }
-
+.whether_post_open {
+  position: absolute;
+  color: lightgrey;
+  top: 10px;
+  left: 10px;
+}
 </style>
 <div class='posts_list'>
   <ul>
   <% posts.each do |post| %>    
     <% next unless post['title'].present? %>
     <% 
-      num_mins = get_post_mins(post)      
+      
+      post_title = escape_html(post['title'] || '(חסר כותרת)')
+      num_mins   = get_post_mins(post)      
     %>
     <% user = $users.get(post[:user_id]) || {} %>
     <li class='single_post_box' onclick="document.location.href = $(this).find('a').attr('href')">
       
-      <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=escape_html post['title']%></a> 
-      
+      <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post_title%></a> 
+      <% if is_owner %>
+      <span class='whether_post_open'>
+        <% if post[:post_open] == 'yes' %>
+          <i class='fa fa-eye' style='color: #7adf78'></i>
+        <% else %>
+          <i class='fa fa-eye-slash'></i>
+        <% end %>
+      </span>
+      <% end %>
       <div>
         <%= erb :'posts/post_metadata', locals: {owner: user, post: post} %>  
       </div>
