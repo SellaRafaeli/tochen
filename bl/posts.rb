@@ -9,6 +9,7 @@ def get_post_mins(post)
   post[:ps].to_a.each {|p| total_words+=p[:text].to_s.size if p[:type] == 'text' }
   num_mins    = (total_words / 300.0).round
   num_mins    = 2 if num_mins < 2
+  num_mins 
 end
 
 post '/create' do 
