@@ -15,7 +15,7 @@ end
 def get_post_og_desc(post)
 	mins = get_post_mins(post)
 	para = post[:ps].to_a.find {|p| p['type'] == 'text'} || {}
-	text = "#{para['text'][0..160]} (#{mins} דק׳ קריאה)"
+	text = "#{para['text'][0..4000]} (#{mins} דק׳ קריאה)"
 	text
 end
 
