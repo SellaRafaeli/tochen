@@ -12,6 +12,13 @@ def get_post_mins(post)
   num_mins 
 end
 
+def get_post_og_desc(post)
+	mins = get_post_mins(post)
+	para = post[:ps].to_a.find {|p| p['type'] == 'text'} || {}
+	text = "#{para['text'][0..4000]} (#{mins} דק׳ קריאה)"
+	text
+end
+
 post '/create' do 
 	require_user
 	res = $posts.add({user_id: cuid})	

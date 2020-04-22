@@ -1,6 +1,12 @@
 <head>
   <title><%=html_title%></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->  
+  <%
+    if pr[:post_id] && (post = $posts.get(pr[:post_id]))
+  %>
+  <meta property="og:title"              content="<%=post['title']%>" />
+  <meta property="og:description"        content="<%=get_post_og_desc(post)%>" />
+  <% end %>
   <%= erb :"layout/css_files" %>    
   <%= erb :'layout/js_scripts'%>  
 

@@ -23,7 +23,7 @@
 </style>
 <h1> <%= handle %> </h1>
 <div class='user_desc'>
-  <%= user[:desc] %>
+  <%= (user || {})[:desc] %>
 </div>
 <%= erb :'posts/posts_list', locals: {posts: posts, is_owner: is_owner} %>    
 
