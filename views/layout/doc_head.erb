@@ -3,8 +3,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->  
   <%
     if pr[:post_id] && (post = $posts.get(pr[:post_id]))
+    post_user = $users.get(user_id: post[:user_id])
   %>
-  <meta property="og:title"              content="<%=post['title']%>" />
+  <meta property="og:title"              content="<%=post['title']%> / <%= post_user['name']%>" />
   <meta property="og:description"        content="<%=get_post_og_desc(post)%>" />
   <meta property="og:image:width" content=100 />
   <meta property="og:image:height" content=100 />
