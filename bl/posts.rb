@@ -12,6 +12,11 @@ def get_post_mins(post)
   num_mins 
 end
 
+def get_post_og_img(post)
+	para = (post[:ps].to_a.find {|p| p['type'] == 'img' } || {})
+	para['src'] || 'https://תוכן.com/favicon.ico'
+end
+
 def get_post_og_desc(post)	
 	para = post[:ps].to_a.find {|p| p['type'] == 'text'} || {}
 	text = "#{para['text'][0..4000]}"
