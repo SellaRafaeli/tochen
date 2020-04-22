@@ -1,5 +1,5 @@
 $prod       = settings.production? #RACK_ENV==production?
-$prod_url   = 'https://tochen.herokuapp.com'
+$prod_url   = 'https://www.תוכן.com'
 $root_url   = $prod ? $prod_url : 'http://localhost:2021'
 
 ONE_YEAR_IN_SECONDS = 31556952
