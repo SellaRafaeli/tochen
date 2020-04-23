@@ -18,8 +18,8 @@ def get_post_og_img(post)
 end
 
 def get_post_og_desc(post)	
-	para = post[:ps].to_a.find {|p| p['type'] == 'text'} || {}
-	text = "#{para['text'][0..4000]}"
+	para = post[:ps].to_a.find {|p| p['type'] == 'text'} || {text: ''}
+	text = "#{para['text'][0..4000]}" rescue ''
 	text
 end
 
