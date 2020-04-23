@@ -11,7 +11,7 @@ end
 def get_post_mins(post)
 	total_words = 0; 
   post[:ps].to_a.each {|p| total_words+=p[:text].to_s.size if p[:type] == 'text' }
-  num_mins    = (total_words / 300.0).round
+  num_mins    = (total_words / 400.0).round 
   num_mins    = 2 if num_mins < 2
   num_mins 
 end
@@ -23,7 +23,7 @@ end
 
 def get_post_og_desc(post)	
 	para = post[:ps].to_a.find {|p| p['type'] == 'text'} || {text: ''}
-	text = "#{para['text'][0..4000]}" rescue ''
+	text = "#{para['text'][0..500]}" rescue ''
 	text
 end
 
