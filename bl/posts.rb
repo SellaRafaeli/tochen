@@ -4,6 +4,10 @@ def get_posts(opts = {})
 	$posts.all(opts, sort: [{created_at: -1}])
 end
 
+def get_post_num_views(post)
+	$views.count(post_id: post[:_id]) #TODO: cache 
+end
+
 def get_post_mins(post)
 	total_words = 0; 
   post[:ps].to_a.each {|p| total_words+=p[:text].to_s.size if p[:type] == 'text' }

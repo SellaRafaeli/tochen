@@ -46,13 +46,22 @@
       
       <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post_title%></a> 
       <% if is_owner %>
+      
       <span class='whether_post_open'>
         <% if post[:post_open] == 'yes' %>
           <i class='fa fa-eye' style='color: #7adf78'></i>
         <% else %>
           <i class='fa fa-eye-slash'></i>
         <% end %>
+        
+        <span style='font-weight: bold'>
+          <%= get_post_num_views(post) %>
+        </span>
       </span>
+
+      <br/>
+      
+      
       <% end %>
       <div>
         <%= erb :'posts/post_metadata', locals: {owner: user, post: post} %>  
