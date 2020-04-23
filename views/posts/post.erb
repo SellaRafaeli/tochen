@@ -6,7 +6,7 @@
   owner   = $users.get(handle: handle)
   is_owner= owner && owner[:_id] == cuid
   ps = post[:ps].to_a
-  ps.push({type: 'text', text: ''}) if ps.size == 0
+  ps.push({type: 'text', text: ''})
 %>
 
 <style>
