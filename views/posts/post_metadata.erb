@@ -5,11 +5,11 @@
   is_owner   = locals[:is_owner] ||= false
 %>
 <div class='user_data rtl'>
-    <span class='user_data_img'><a href='<%=$root_url%>/@<%=owner['handle']%>'><img class=user_img src="<%=owner[:img_url]%>"></a></span>
+    <span class='user_data_img'><a href='<%=$root_url%>/@<%=owner['handle']%>'><img class=user_img src="<%=owner[:img_url] || DEFAULT_PIC %>"></a></span>
 
     <span class='user_data_data'>
       <a href='<%=$root_url%>/@<%=owner['handle']%>'><%= owner['name'] %></a>
       <br/>
-      <a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %><% if !is_owner %>· <span>כ-<%=num_mins %> דק׳ קריאה</span><% end %></a>
+      <a href='<%=$root_url%><%=_req.path%>' target=_blank><%= created_at %><% if !is_owner %>· כ-<%=num_mins %> דק׳ קריאה<% end %></a>
     </span>
 </div>

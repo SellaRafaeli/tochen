@@ -1,5 +1,7 @@
 $users = $mongo.collection('users')
 
+DEFAULT_PIC = '/img/profile.png'
+
 get '/me' do
 	redirect_unless_user
 
