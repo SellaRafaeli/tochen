@@ -51,7 +51,7 @@
       num_mins   = get_post_mins(post)      
       num_words  = get_post_num_words(post)      
       num_views  = get_post_num_views(post)
-      last_view  = nice_date($views.last(post_id: post_id)[:created_at])
+      last_view  = nice_date($views.last(post_id: post_id)[:created_at]) rescue nil
     %>
     <% user = $users.get(post[:user_id]) || {} %>
     <li class='single_post_box' onclick="document.location.href = $(this).find('a').attr('href')"
@@ -78,8 +78,10 @@
         <div class=zbold>
           <div><%= num_mins %> דק׳ </div>
           <div><%= num_words %> מילים </div>
+          <% if num_views > 0 %>
           <div><%= num_views %> צפיות </div>
-          <div>נקרא לאחרונה: <%= last_view %></div>
+          <div>נקרא לאחרונה: <%= last_view.to_s %></div>
+          <% end %>
         </div>
       </div>
       <br/>
