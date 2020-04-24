@@ -5,10 +5,10 @@ Tochen:
 
 Post: 
 * Next steps
-	* require manual publish to update
 	* add video
 	* add support for links 
 	* add graph of views to stats
+	* add "dirty" flag if unsaved and check for it onbeforeunload
 
 * Content:
 	* frontpage: hand-picked for now

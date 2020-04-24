@@ -16,18 +16,14 @@
 <div class='post_buttons_container'>
   <div class='post_buttons'>
     <div class='saved-btn btn'></div>
+
+    <button id=save_post_btn class='btn btn-raised' onclick=savePost() data-placement=top data-toggle=tooltip data-title="לשמור שינויים"> לשמור <i class='fa fa-floppy-o'></i></button>
+    
+    <button class='btn' onclick=$("#img_uploader").click() data-placement=top data-toggle=tooltip data-title="להוסיף תמונה"> <i class='fa fa-picture-o'></i></button>
+
     <a class='publish-btn-toggle publish-btn btn btn-raised btn-primary <%= "noDisplay" if post[:post_open].to_s == 'yes' %>'   data-toggle="tooltip" data-placement="top">לפרסם!</a>
 
-    <a class='publish-btn-toggle unpublish-btn btn btn-raised btn-success <%= "noDisplay" if !(post[:post_open].to_s == 'yes') %>' data-toggle="tooltip" data-title="פתוח לצפייה; לחץ להסתיר" data-placement="top"><i class='fa fa-check'></i></a>
-    
-    <span style='padding-left:20px'>
-      <button class='btn btn-raised' onclick=$("#img_uploader").click() data-placement=top data-toggle=tooltip data-title="להוסיף תמונה לחץ להוסיף"> <i class='fa fa-picture-o'></i></button>
-    </span>
-
-    <% if num_views >= 0 %>
-    <span class='num_views rtl'><%=num_views%><i class='fa fa-eye' style='margin-right: 12px'></i></span>
-    <% end %>
-    
+    <a class='publish-btn-toggle unpublish-btn btn <%= "noDisplay" if !(post[:post_open].to_s == 'yes') %>' data-toggle="tooltip" data-title="פתוח לצפייה; לחץ להסתיר" data-placement="top"><i style='color: green' class='fa fa-eye'></i></a>
     
   </div>
 </div>
