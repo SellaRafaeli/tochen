@@ -20,8 +20,22 @@
   font-size: 22px;
   margin: 10px auto;
 }
+.analytics_btn {
+  margin-right: 10px;
+}
+.analytics_btn button {
+  cursor: pointer;
+}
+.analytics_btn img {
+  height: 30px;
+}
 </style>
-<h1> <%= handle %> </h1>
+<h1> 
+  <%= handle %> 
+  <% if is_owner %>
+  <span class='analytics_btn'><button onclick=$('.analytics_tools').toggle()><img src='/img/graph.png' /></button></span>
+  <% end %>
+</h1>
 <div class='user_desc'>
   <%= (user || {})[:desc] %>
 </div>

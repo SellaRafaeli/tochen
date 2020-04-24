@@ -50,6 +50,19 @@ post '/posts/:id' do
 	{post: res}
 end
 
+get '/@*/:post_id/analytics' do
+	post_id    = pr[:post_id]
+	post       = $posts.get(post_id) || {}
+	is_owner   = post[:user_id]==cuid
+	if !is_owner
+		flash_err('No permissions')
+		redirect '/'
+	end
+	
+	erb :'/posts/analytics', locals: {post: post}, layout: :layout
+end
+
+
 get '/@*/:post_id' do
 	post_id    = pr[:post_id]
 	post       = $posts.get(post_id) || {}

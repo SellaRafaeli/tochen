@@ -25,16 +25,22 @@
   font-size: 18px;
   color: black;
 }
-.whether_post_open {
-  position: absolute;
+.post_analytics {
+  display: flex;
   color: black;
-  top: 10px;
-  left: 10px;
+}
+.analytics_tools {
+  display: none;
+}
+.analytics_main_stats {
+  display: flex;
 }
 </style>
 <div class='posts_list'>
-  <% if is_owner %>
-  <div class='posts_list_buttons'>
+  <% if is_owner %>  
+  <br/>
+
+  <div class='posts_list_buttons analytics_tools'>
     <button onclick="sortElemsList('#posts_list', '.single_post_box', 'num_views')"> הכי נצפים </button>
     <button onclick="sortElemsList('#posts_list', '.single_post_box', 'num_words')"> הכי ארוכים </button>
   </div>
@@ -64,30 +70,7 @@
     >
       
       <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post_title%></a> 
-      <% if is_owner %>
       
-      <div class='whether_post_open'>
-        <div>
-        <% if post[:post_open] == 'yes' %>
-          <i class='fa fa-eye' style='color: #7adf78'></i>
-        <% else %>
-          <i class='fa fa-eye-slash'></i>
-        <% end %>
-        </div>
-
-        <div class=zbold>
-          <div><%= num_mins %> דק׳ </div>
-          <div><%= num_words %> מילים </div>
-          <% if num_views > 0 %>
-          <div><%= num_views %> צפיות </div>
-          <div>נקרא לאחרונה: <%= last_view.to_s %></div>
-          <% end %>
-        </div>
-      </div>
-      <br/>
-      
-      
-      <% end %>
       <div>
         <%= erb :'posts/post_metadata', locals: {owner: user, post: post} %>  
       </div>
@@ -96,8 +79,33 @@
     
       <!-- <span class=''><%= nice_date(post['created_at']) %></span>
       <span class=''>כ-<%= num_mins %> דק׳ קריאה</span> -->
+      <% if is_owner %>      
+        <div class='post_analytics analytics_tools'>
+          <div class='analytics_main_stats'>
+            <span>
+            <% if post[:post_open] == 'yes' %>
+              <i class='fa fa-eye' style='color: #7adf78' title="פתוח לצפייה"></i>
+            <% else %>
+              <i class='fa fa-eye-slash' title='סגור לצפייה'></i>
+            <% end %>
+            </span>
+            <!-- <span><%= num_mins %> דק׳ </span> -->
+            <span><%= num_words %> מילים </span>
+            <% if num_views > 0 %>
+            <span><%= num_views %> צפיות </span>
+            <span>צפיה אחרונה: <%= last_view.to_s %></span>
+            <% end %>
+          </div>
+        </div>
+        
+      <% end %>
+
     </li>
   <% end %>
   </ul>
 </div>
+
+
+<% if is_owner %>
+<% end %>
 <!-- <p> האירועים שלי </p> -->      
