@@ -94,6 +94,9 @@
             <% if num_views > 0 %>
             <span><%= num_views %> צפיות </span>
             <span>צפיה אחרונה: <%= last_view.to_s %></span>
+            <% else %>
+            <span> </span>
+            <span> </span>
             <% end %>
           </div>
         </div>

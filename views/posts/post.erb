@@ -192,10 +192,19 @@ function onLoad() {
   createTextLinks();
 }
 
+
+function onbeforeunload(e) {
+  e.preventDefault(); // for firefox
+  e.returnValue = ''; // for chrome
+}
+
 function markDirty(flag) {
   if (flag) {
     $('#save_post_btn').addClass('btn-primary');  
+    //https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
+    window.addEventListener('beforeunload', onbeforeunload);
   } else {
+    window.removeEventListener('beforeunload', onbeforeunload);
     $('#save_post_btn').removeClass('btn-primary');  
   }  
 }
