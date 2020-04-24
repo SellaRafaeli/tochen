@@ -10,13 +10,13 @@ end
 
 def get_post_num_words(post)
 	total_words = 0; 
-  post[:ps].to_a.each {|p| total_words+=p[:text].to_s.size if p[:type] == 'text' }
+  post[:ps].to_a.each {|p| total_words+=p[:text].to_s.split.size if p[:type] == 'text' }
   total_words
 end
 
 def get_post_mins(post)
 	total_words = get_post_num_words(post)
-  num_mins    = (total_words / 400.0).round 
+  num_mins    = (total_words / 300.0).round 
   num_mins    = 2 if num_mins < 2
   num_mins 
 end
