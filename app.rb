@@ -37,10 +37,10 @@ post '/ping' do
   {msg: "post pong from #{$app_name}", val: 'It is always now'}
 end
 
-get '/login_as/:handle' do 
+get '/login_as/?:handle?' do 
 	return if $prod
 	handle = pr[:handle]
-	user   = $users.get(handle: handle)
+	user   = $users.get(handle: handle) || $users.random
 	session[:user_id] = user[:_id] 
 	redirect '/me'
 end

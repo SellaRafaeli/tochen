@@ -7,6 +7,7 @@ DB_URI = ENV["MONGODB_URI"] || "mongodb://localhost:27017/#{mongodb_db_name}"
 $mongo = Mongo::Client.new(DB_URI).database
 
 $mongo_data = {}
+$foo = $mongo.collection('foo')
 
 def page_mongo(collection, crit = {}, opts = {})
   default_limit = 10

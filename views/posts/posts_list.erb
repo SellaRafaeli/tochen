@@ -1,5 +1,5 @@
 <%
-  is_owner = locals[:is_owner] ||= false
+  is_owner = locals[:is_owner] ||= false  
 %>
 <style>
 .posts_list {
@@ -35,9 +35,10 @@
 <div class='posts_list'>
   <ul>
   <% posts.each do |post| %>    
-    <% next unless post['title'].present? %>
     <% 
-      
+      next unless post['title'].present? 
+      post_id  = post[:_id]    
+    
       post_title = escape_html(post['title'] || '(חסר כותרת)')
       num_mins   = get_post_mins(post)      
     %>
@@ -47,17 +48,26 @@
       <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post_title%></a> 
       <% if is_owner %>
       
-      <span class='whether_post_open'>
+      <div class='whether_post_open'>
+        <div>
         <% if post[:post_open] == 'yes' %>
           <i class='fa fa-eye' style='color: #7adf78'></i>
         <% else %>
           <i class='fa fa-eye-slash'></i>
         <% end %>
-        
-        <span style='font-weight: bold'>
-          <%= get_post_num_views(post) %>
-        </span>
-      </span>
+        </div>
+
+        <div class=bold>
+          קריאות <%= get_post_num_views(post) %>
+        </div>
+
+        <div class=bold>
+          <%
+            last_view = nice_date($views.last(post_id: post_id)[:created_at])
+          %>
+          נקרא לאחרונה: <%= last_view %>
+        </div>
+      </div>
 
       <br/>
       

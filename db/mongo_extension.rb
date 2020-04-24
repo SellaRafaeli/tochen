@@ -25,8 +25,8 @@ class Mongo::Collection
     get_many.first
   end
 
-  def last 
-    get_many({}, sort: [{created_at: -1}]).first
+  def last(opts = {})
+    get_many(opts, sort: [{created_at: -1}]).first
   end
 
   def exists?(fields)
