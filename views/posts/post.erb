@@ -43,7 +43,7 @@ textarea {
     <% if is_owner %>
       <textarea onkeyup=markDirty(true) rows=1 class='editable_textarea title_textarea' autofocus placeholder='כותרת'><%= post['title'] %></textarea>
     <% else %>
-      <div readonly           rows=1 class='editable_textarea title_textarea'><%= post['title'] %></div>
+      <div rows=1 class='editable_textarea title_textarea'><%= post['title'] %></div>
     <% end %>
   </h1>
 
@@ -57,7 +57,7 @@ textarea {
           <% if is_owner %>
             <textarea onkeyup=markDirty(true) class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if ps.size == 1 && idx == 0 %>><%= p[:text] %></textarea>
           <% else %>
-            <textarea readonly           class='editable_textarea body_textarea'><%= p[:text] %></textarea>
+            <div class='reading_textarea body_textarea'><%= p[:text] %></div>
           <% end %>      
         
         <% elsif p[:type].to_s == 'img' %>
@@ -97,16 +97,20 @@ function getData() {
 
 function savePost() {  
   var data = getData();
-  var btn  = $('.saved-btn');
-  btn.fadeOut(0).text('');
+  var btn  = $('.save_post_btn_text');
+  //btn.fadeOut(0).text('');
+  btn.text('שומר...');
   clearTimeout(window.savePostTimeout);
-  window.savePostTimeout = setTimeout(()=>{
-    btn.fadeIn('fast').text('שומר...');
+  window.savePostTimeout = setTimeout(()=>{    
     updateServer(data).then(res => { 
-      btn.text('נשמר').fadeOut(1500);
-      markDirty(false);
+      btn.text('נשמר!')//.fadeOut(1500);
+      setTimeout(()=> {
+        btn.text('לשמור');
+        markDirty(false);
+      },500);
+      
     })  
-  },1000);
+  },500);
 }
   
 function resizeTextAreas() {
@@ -158,12 +162,34 @@ function attachImgUploader() {
   });
 }
 
+function createTextLinks(text) {
+  var oldText = $('.reading_textarea').html();
+  var text    = (oldText || "").replace(
+    /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+    function(match, space, url){
+      var hyperlink = url;
+      var fullURL   = url.substring(0,30);
+      var toolti
+      if (url.length > 30) {
+        url = url.substring(0,17)+'...'
+      }
+      if (!hyperlink.match('^https?:\/\/')) {
+        //hyperlink = 'https://' + hyperlink;
+      }
+      //data-placement=top data-toggle=tooltip data-title=${fullURL} // tooltip not necessary since link is original
+      return space + `<a  class=text_link target=_blank href="` + hyperlink + '">' + url + '</a>';
+    }
+  );
+  $('.reading_textarea').html(text);
+};
+
 function onLoad() {
   $('[data-toggle="tooltip"]').tooltip(); // show tooltips 
 
   setTimeout(()=>resizeTextAreas(),100);
   attachImgUploader();
   attachImgDeleters();
+  createTextLinks();
 }
 
 function markDirty(flag) {
@@ -171,8 +197,7 @@ function markDirty(flag) {
     $('#save_post_btn').addClass('btn-primary');  
   } else {
     $('#save_post_btn').removeClass('btn-primary');  
-  }
-  
+  }  
 }
 
 $(document).ready(onLoad);

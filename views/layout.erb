@@ -19,6 +19,11 @@
   <link rel="stylesheet" href="/css/fonts/RobotoFonts.css">
   <link rel="stylesheet" href="/css/fonts/MaterialIcons.css">
 
+<% if !$prod %>
+<div style='position: fixed; top: 0; left: 0; height: 100px; width: 100px; background-color: goldenrod; text-align: center; font-weight: bold; font-size: 30px;'>
+  DEV MODE
+</div>
+<% end %>
 <!--   <script src="https://js.stripe.com/v3"></script> -->
   <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -28,5 +33,15 @@
       ga('create', 'UA-100769576-1', 'auto');
       ga('send', 'pageview');
   </script>
+
+<script>
+function layoutOnLoad() {
+  $('[data-toggle="tooltip"]').tooltip(); 
+  console.log('done layoutOnLoad');
+}
+
+$(document).ready(layoutOnLoad);
+</script>
+
 </body>
 </html>

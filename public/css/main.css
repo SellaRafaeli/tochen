@@ -71,6 +71,6 @@ bottom: 0;
 	font-weight: 500;
 }
 
-.editable_textarea[readonly] {
-	cursor: auto;
+.reading_textarea {
+  white-space: pre-wrap;
 }
