@@ -87,3 +87,14 @@ function uploadImg(file, cb) {
 
   $.ajax(settings).done(cb) // link at response.data.link
 }
+
+function sortElemsList(containerSelector, itemSelector, data_attr) {
+  var list = $(itemSelector);
+  list.sort(function(a, b){
+    var res =  ($(a).data(data_attr)-$(b).data(data_attr)) * -1;
+    console.log(res);
+    return res;
+  });
+  
+  $(containerSelector).html(list);  
+}

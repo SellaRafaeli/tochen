@@ -27,13 +27,21 @@
 }
 .whether_post_open {
   position: absolute;
-  color: lightgrey;
+  color: black;
   top: 10px;
   left: 10px;
 }
 </style>
 <div class='posts_list'>
-  <ul>
+  <% if is_owner %>
+  <div class='posts_list_buttons'>
+    <button onclick="sortElemsList('#posts_list', '.single_post_box', 'num_views')"> הכי נצפים </button>
+    <button onclick="sortElemsList('#posts_list', '.single_post_box', 'num_words')"> הכי ארוכים </button>
+  </div>
+  <br/>
+  <% end %>
+  
+  <ul id=posts_list>
   <% posts.each do |post| %>    
     <% 
       next unless post['title'].present? 
@@ -41,9 +49,19 @@
     
       post_title = escape_html(post['title'] || '(חסר כותרת)')
       num_mins   = get_post_mins(post)      
+      num_words  = get_post_num_words(post)      
+      num_views  = get_post_num_views(post)
+      last_view  = nice_date($views.last(post_id: post_id)[:created_at])
     %>
     <% user = $users.get(post[:user_id]) || {} %>
-    <li class='single_post_box' onclick="document.location.href = $(this).find('a').attr('href')">
+    <li class='single_post_box' onclick="document.location.href = $(this).find('a').attr('href')"
+      <% if is_owner %>
+      data-num_views="<%= num_views %>"
+      data-num_mins="<%= num_mins %>"
+      data-last_view="<%= last_view %>"
+      data-num_words="<%= num_words %>"
+      <% end %>
+    >
       
       <span><a class='single_post_link' href='/@<%=user['handle']%>/<%=post[:_id]%>'><%=post_title%></a> 
       <% if is_owner %>
@@ -57,18 +75,13 @@
         <% end %>
         </div>
 
-        <div class=bold>
-          קריאות <%= get_post_num_views(post) %>
-        </div>
-
-        <div class=bold>
-          <%
-            last_view = nice_date($views.last(post_id: post_id)[:created_at])
-          %>
-          נקרא לאחרונה: <%= last_view %>
+        <div class=zbold>
+          <div><%= num_mins %> דק׳ </div>
+          <div><%= num_words %> מילים </div>
+          <div><%= num_views %> צפיות </div>
+          <div>נקרא לאחרונה: <%= last_view %></div>
         </div>
       </div>
-
       <br/>
       
       
