@@ -51,7 +51,7 @@ textarea {
 
   <div class='postBody refreshOnChange'>
     <% ps.to_a.each_with_index do |p, idx| %>
-  
+      <% next unless p[:text].present? || p[:src].present? %>
       <div class='single_p <%=p[:type]%>'>
         <% if p[:type].to_s == 'text' && (idx == 0 || idx == (ps.to_a.size-1) || p[:text].to_s.strip.present?) %>      
           <% if is_owner %>
