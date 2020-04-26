@@ -53,7 +53,7 @@ textarea {
     <% ps.to_a.each_with_index do |p, idx| %>
       <% next unless p[:text].present? || p[:src].present? %>
       <div class='single_p <%=p[:type]%>'>
-        <%= idx %>
+        <%= p.to_json %>
         <% if p[:type].to_s == 'text' && (idx == 0 || idx == (ps.to_a.size-1) || p[:text].to_s.strip.present?) %>      
           <% if is_owner %>
             <textarea onkeyup=markDirty(true) class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if ps.size == 1 && idx == 0 %>><%= p[:text] %></textarea>
