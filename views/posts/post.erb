@@ -54,11 +54,12 @@ textarea {
       <% next unless para[:text].present? || para[:src].present? %>
       <div class='single_p <%=para[:type]%>'>
         <%= para.to_json %>
-        <%= para[:text] %>
-        <% if para[:type].to_s == 'text' && (idx == 0 || idx == (ps.to_a.size-1) || para[:text].to_s.strip.present?) %>      
+        <div style='border:1px solid blue'><%= para[:text] %></div>   
+        <% if (para[:type].to_s == 'text') && (idx == 0 || idx == (ps.to_a.size-1) || para[:text].to_s.strip.present?) %>   <div style='border:1px solid green'><%= para[:text] %></div>   
           <% if is_owner %>
             <textarea onkeyup=markDirty(true) class='editable_textarea body_textarea' <%="placeholder='הסיפור שלך'" if ps.size == 1 && idx == 0 %>><%= para[:text] %></textarea>
           <% else %>
+            <div style='border:1px solid gold'><%= para[:text] %></div>
             <div class='reading_textarea body_textarea'><%= para[:text] %></div>
           <% end %>      
         
