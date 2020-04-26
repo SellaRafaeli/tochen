@@ -1,5 +1,6 @@
 <%
-  num_mins = get_post_mins(post)
+  num_mins  = get_post_mins(post)
+  num_views = get_post_num_views(post)
   created_at = nice_date(post['created_at']) rescue ''  
   updated_at = nice_date(post['updatd_at'] || post['created_at']) rescue ''  
   is_owner   = locals[:is_owner] ||= false
