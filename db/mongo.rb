@@ -12,12 +12,12 @@ $foo = $mongo.collection('foo')
 
 # def copy_collection(src_db, tar_db, collection_names) # NewMerchantConfiguration
 #   collection_names.each do |collection_name|
-#     src = Mongo::Client.new(src_db).database.collection(collection_name)
-#     $new_mongo = Mongo::Client.new(NEW_MONGO).database
+#     src = Mongo::Client.new(OLD_DB_URI).database.collection(collection_name)
+#     $new_mongo = Mongo::Client.new(DB_URI).database
 #     tar = $new_mongo.collection(collection_name)
 
 #     #tar.delete_many
-#     src.all.each { |doc| tar.add(doc) }; 'done'
+#     src.all.each { |doc| $views.add(doc) }; 'done'
 #   end
 # end
 
