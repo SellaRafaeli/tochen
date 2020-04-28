@@ -22,6 +22,7 @@ def get_post_mins(post)
 end
 
 def get_post_og_img(post)
+	return 'https://תוכן.com/favicon.ico'
 	para = (post[:ps].to_a.find {|p| p['type'] == 'img' } || {})
 	para['src'] || 'https://תוכן.com/favicon.ico'
 end
