@@ -2,12 +2,24 @@ Mongo::Logger.logger.level = Logger::WARN
 
 mongodb_db_name = $app_name 
 #mongodb_db_name = 'yesno_prod_backup'
-DB_URI = ENV["MONGODB_URI"] || "mongodb://localhost:27017/#{mongodb_db_name}"
+OLD_DB_URI = ENV["MONGODB_URI"]
+DB_URI     = ENV['MONGOLAB_IVORY_URI'] || "mongodb://localhost:27017/#{mongodb_db_name}"
 
 $mongo = Mongo::Client.new(DB_URI).database
 
 $mongo_data = {}
 $foo = $mongo.collection('foo')
+
+# def copy_collection(src_db, tar_db, collection_names) # NewMerchantConfiguration
+#   collection_names.each do |collection_name|
+#     src = Mongo::Client.new(src_db).database.collection(collection_name)
+#     $new_mongo = Mongo::Client.new(NEW_MONGO).database
+#     tar = $new_mongo.collection(collection_name)
+
+#     #tar.delete_many
+#     src.all.each { |doc| tar.add(doc) }; 'done'
+#   end
+# end
 
 def page_mongo(collection, crit = {}, opts = {})
   default_limit = 10
