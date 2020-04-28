@@ -16,10 +16,10 @@ posts = posts.uniq { |p| p[:user_id] }
 </style>
 <div class='hp'>
 	<h1> תוכן. </h1>
-
-  <a href='/signup' class='btn btn-primary btn-raised'> להתחיל ליצור </a>
+  <p> פה אפשר וכדאי לכתוב ולקרוא תוכן מעולה בעברית. </p>
+  <a href='/signup' class='btn btn-primary btn-raised'> להירשם </a>
   <!-- <h2> Posts </h2> -->
-  <%= erb :'posts/posts_list', locals: {posts: posts, show_handle: true} %>
+  <%#= erb :'posts/posts_list', locals: {posts: posts, show_handle: true} %>
 </div>
 
 <script>
