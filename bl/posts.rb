@@ -1,7 +1,7 @@
 $posts = $mongo.collection('posts');
 
 def get_posts(opts = {})
-	$posts.all(opts, sort: [{created_at: -1}])
+	$posts.all(opts) #, sort: [{created_at: -1}])
 end
 
 def get_post_num_views(post, opts = {})
