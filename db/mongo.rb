@@ -3,7 +3,7 @@ Mongo::Logger.logger.level = Logger::WARN
 mongodb_db_name = $app_name 
 #mongodb_db_name = 'yesno_prod_backup'
 OLD_DB_URI = ENV["MONGODB_URI"]
-DB_URI     = ENV['MONGOLAB_IVORY_URI'] || "mongodb://localhost:27017/#{mongodb_db_name}"
+DB_URI     = ENV['ATLAS_MONGODB_URI'] || ENV['zMONGOLAB_IVORY_URI'] || "mongodb://localhost:27017/#{mongodb_db_name}"
 
 $mongo = Mongo::Client.new(DB_URI).database
 
