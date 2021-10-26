@@ -1,10 +1,13 @@
 <%
 #events = $events.all.sort_by {|ev| ev[:date] }
 posts = get_posts(post_open: 'yes')
-posts = posts.uniq { |p| p[:user_id] }
+
+posts.sort_by {|p| p[:created_at]}.reverse 
+
+# posts = posts.uniq { |p| p[:user_id] }
 
 
-users = $posts.all.mapo(:user_id).uniq.map {|id| $users.get(id) }
+# users = $posts.all.mapo(:user_id).uniq.map {|id| $users.get(id) }
 
 %>
 
@@ -32,11 +35,12 @@ users = $posts.all.mapo(:user_id).uniq.map {|id| $users.get(id) }
 
   <br/>
   <div class='users_area'>
-    <div>הנה כמה כותבים למשל:</div>
-    <% users.each do |user| %>
-    <div class='single_hp_user_link'>
-      <a href='/@<%=user[:handle]%>'>@<%=user[:handle]%></a>
-    </div>
+    <div>פוסטים מלאחרונה:</div>
+    <% posts.each do |post| %>
+      <% user = $users.get(post[:user_id]) || {}%>
+        <div class='single_hp_user_link'>
+          <a href='/@<%=user[:handle]%>/<%=post[:_id]%>'>@<%=user[:handle]%>: <%=post[:title]%></a>
+        </div>      
     <% end %>
   </div>
   <!-- <h2> Posts </h2> -->
