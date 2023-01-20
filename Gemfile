@@ -8,7 +8,7 @@ gem 'sinatra-contrib'
 gem 'mongo', '~> 2.5.0'
 gem 'bson_ext'
 # gem 'pg'
-gem 'activesupport',        '5.0.0.1' # utility functions like hash.slice
+gem 'activesupport',        '6.1.7.1' # utility functions like hash.slice
 #gem 'activerecord'
 #gem 'sinatra-activerecord'
 
